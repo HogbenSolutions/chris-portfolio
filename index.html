@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Modern Portfolio • Startup & Workflow</title>
+    <meta
+      name="description"
+      content="Vibrant, modern portfolio for startups and growing teams. Fullscreen slider, animated charts, smooth UX. HTML/CSS/JS only."
+    />
+    <link rel="icon" href="favicon.ico" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="aurora" aria-hidden="true"></div>
+
+    <header>
+      <announcement class="container">
+        <div id="announcementBar">
+          <p>*** Websites from £199 ***</p>
+        </div>
+      </announcement>
+      <nav class="nav container">
+        <div class="brand">
+          <img
+            class="logo"
+            src="https://res.cloudinary.com/dy8oze8dn/image/upload/v1755921732/Self_Portrait_qdcjdd.jpg"
+            alt="My Portfolio Logo"
+          />
+          <span>Hogben.Solutions</span>
+        </div>
+        <div class="links" id="desktopLinks">
+          <a href="#home">Home</a>
+          <a href="#work">Work</a>
+          <a href="#skills">Skills</a>
+          <a href="#contact">Contact</a>
+          <a class="btn accent" href="#contact">Let’s Talk</a>
+        </div>
+        <button class="menu-toggle" aria-label="Menu" id="menuBtn">
+          <span></span><span></span><span></span>
+        </button>
+      </nav>
+      <div class="mobile-drawer" id="drawer">
+        <a href="#home">Home</a>
+        <a href="#work">Work</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </header>
+
+    <!-- Slider / Hero -->
+    <section class="slider" id="home">
+      <div class="slides">
+        <!-- Slide 1 -->
+        <article class="slide active" data-theme="purple">
+          <div class="slide-inner container">
+            <div>
+              <div class="kicker">
+                <span class="dot"></span
+                ><span class="chip">Launch faster • Streamline work</span>
+              </div>
+              <h1>
+                Design & build apps that
+                <span
+                  style="
+                    background: linear-gradient(
+                      135deg,
+                      var(--accent),
+                      var(--accent-2)
+                    );
+                    -webkit-background-clip: text;
+                    background-clip: text;
+                    color: transparent;
+                  "
+                  >move your metrics</span
+                >
+              </h1>
+              <p class="lead">
+                From MVPs for fresh startups to automation for growing teams — I
+                turn ideas into fast, elegant products that save time and drive
+                revenue.
+              </p>
+              <div class="cta-row">
+                <a class="btn accent" href="#work">View Projects</a>
+                <a class="btn ghost" href="#contact">Start a Project</a>
+              </div>
+            </div>
+            <div class="chart-card">
+              <header>
+                <div class="chart-title">
+                  <strong>Growth Overview</strong>
+                  <span class="chip">Live</span>
+                </div>
+                <div class="chart-meta">Line chart — animated values</div>
+              </header>
+              <canvas
+                class="chart"
+                data-type="line"
+                data-points="4,9,7,12,10,18,22,26"
+                aria-label="Line chart"
+              ></canvas>
+            </div>
+          </div>
+        </article>
+
+        <!-- Slide 2 -->
+        <article class="slide" data-theme="cyan">
+          <div class="slide-inner container">
+            <div>
+              <div class="kicker">
+                <span class="dot"></span
+                ><span class="chip">For Startups & SMBs</span>
+              </div>
+              <h1>
+                Pitch decks & dashboards that
+                <span
+                  style="
+                    background: linear-gradient(135deg, #22d1ee, #7c5cff);
+                    -webkit-background-clip: text;
+                    background-clip: text;
+                    color: transparent;
+                  "
+                  >wow investors</span
+                >
+              </h1>
+              <p class="lead">
+                Clear storytelling, interactive charts, and on-brand UI so your
+                value is obvious at a glance.
+              </p>
+              <div class="cta-row">
+                <a class="btn accent" href="#skills">Explore Skills</a>
+                <a class="btn ghost" href="#contact">Get in Touch</a>
+              </div>
+            </div>
+            <div class="chart-card">
+              <header>
+                <div class="chart-title">
+                  <strong>Quarterly Breakdown</strong>
+                  <span class="chip">+12%</span>
+                </div>
+                <div class="chart-meta">Bar chart — staggered animation</div>
+              </header>
+              <canvas
+                class="chart"
+                data-type="bar"
+                data-bars="6,9,4,12,10,16"
+                aria-label="Bar chart"
+              ></canvas>
+            </div>
+          </div>
+        </article>
+
+        <!-- Slide 3 -->
+        <article class="slide" data-theme="magenta">
+          <div class="slide-inner container">
+            <div>
+              <div class="kicker">
+                <span class="dot"></span
+                ><span class="chip">Automation & Ops</span>
+              </div>
+              <h1>
+                Cut busywork with
+                <span
+                  style="
+                    background: linear-gradient(135deg, #ff7ad9, #7c5cff);
+                    -webkit-background-clip: text;
+                    background-clip: text;
+                    color: transparent;
+                  "
+                  >smart workflows</span
+                >
+              </h1>
+              <p class="lead">
+                APIs, integrations, and data pipelines that connect your tools
+                so teams can ship faster.
+              </p>
+              <div class="cta-row">
+                <a class="btn accent" href="#work">See Case Studies</a>
+                <a class="btn ghost" href="#contact">Say Hello</a>
+              </div>
+            </div>
+            <div class="chart-card">
+              <header>
+                <div class="chart-title">
+                  <strong>Traffic Sources</strong>
+                  <span class="chip">48k</span>
+                </div>
+                <div class="chart-meta">Donut chart — sweep animation</div>
+              </header>
+              <canvas
+                class="chart"
+                data-type="donut"
+                data-slices="40,25,20,15"
+                aria-label="Donut chart"
+              ></canvas>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="arrows">
+        <button class="arrow" id="prev" aria-label="Previous">◀</button>
+        <button class="arrow" id="next" aria-label="Next">▶</button>
+      </div>
+
+      <div class="controls">
+        <div class="dots" id="dots" aria-label="Slide pagination"></div>
+      </div>
+    </section>
+
+    <!-- Trust bar -->
+    <div class="trust container">
+      <div class="trust-inner">
+        <b>Tools and frameworks:</b>
+        <span class="logo-pill">HTML</span>
+        <span class="logo-pill">CSS</span>
+        <span class="logo-pill">JavaScript</span>
+        <span class="logo-pill">Node JS</span>
+        <span class="logo-pill">jQuery</span>
+        <span class="logo-pill">React</span>
+        <span class="logo-pill">MongoDB</span>
+        <span class="logo-pill">Mongoose</span>
+        <span class="logo-pill">Express</span>
+        <span class="logo-pill">Git</span>
+        <span class="logo-pill">Bootstrap</span>
+        <span class="logo-pill">NoSQL</span>
+        <span class="logo-pill">Stripe</span>
+        <span class="logo-pill">NPM</span>
+      </div>
+    </div>
+
+    <!-- Work -->
+    <section id="work">
+      <div class="container">
+        <div class="section-head">
+          <h2>Get Inspired</h2>
+          <p class="sub">From simple websites to complex web applications.</p>
+        </div>
+        <div class="grid">
+          <article class="card reveal">
+            <div class="thumb">
+              <img class="" src="" alt="" />
+            </div>
+            <h3>Basic Website</h3>
+            <p>
+              Single or multi page websites with modern design. A web presence
+              with general information about you or your business, with a
+              contact form.
+            </p>
+            <div class="tag-row">
+              <span class="chip">HTML</span>
+              <span class="chip">CSS</span>
+              <span class="chip">JavaScript</span>
+            </div>
+          </article>
+          <article class="card reveal">
+            <div class="thumb"></div>
+            <h3>Mobile friendly</h3>
+            <p>Works on all devices, with a responsive design.</p>
+            <div class="tag-row">
+              <span class="chip">Responsive</span>
+              <span class="chip">Mobile</span>
+              <span class="chip">Tablet</span>
+            </div>
+          </article>
+          <article class="card reveal">
+            <div class="thumb"></div>
+            <h3>Web Applications</h3>
+            <p>
+              More than a website... Customised app to run every aspect of your
+              business. Stop 'making do' modifying your workflow to suit
+              off-the-shelf software.
+            </p>
+            <div class="tag-row">
+              <span class="chip">Database</span>
+              <span class="chip">APIs</span>
+              <span class="chip">Server</span>
+            </div>
+          </article>
+          <article class="card reveal">
+            <div class="thumb"></div>
+            <h3>Authentification & Authorisation</h3>
+            <p>
+              Safe and secure logins, with set permissions based on user role.
+              Admin, manager, staff, customer etc.
+            </p>
+            <div class="tag-row">
+              <span class="chip">Login</span>
+              <span class="chip">CRUD</span>
+              <span class="chip">JWTs</span>
+            </div>
+          </article>
+          <article class="card reveal">
+            <div class="thumb"></div>
+            <h3>CRUD Operations</h3>
+            <p>
+              Create, Read, Update, and Delete operations for your users,
+              products, orders, blog post and more.
+            </p>
+            <div class="tag-row">
+              <span class="chip">Database</span>
+              <span class="chip">Products</span>
+              <span class="chip">Users</span>
+            </div>
+          </article>
+          <article class="card reveal">
+            <div class="thumb"></div>
+            <h3>Analytics/Reporting</h3>
+            <p>
+              Customer analytics dashboard with real‑time charts and role‑based
+              access. Reporting tools to help with decision making.
+            </p>
+            <div class="tag-row">
+              <span class="chip">Dashboard</span>
+              <span class="chip">Analytics</span>
+              <span class="chip">Reports</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills">
+      <div class="container">
+        <div class="section-head">
+          <h2>Skills & Capabilities</h2>
+          <p class="sub">
+            Strategy to shipping — I cover the stack that helps startups
+            validate, iterate, and scale.
+          </p>
+        </div>
+        <div class="grid">
+          <div class="skill reveal">
+            <h4>Design Systems</h4>
+            <p class="sub">Reusable, accessible UI libraries.</p>
+            <div class="progress" data-value="85"><i></i></div>
+          </div>
+          <div class="skill reveal">
+            <h4>Data Visualization</h4>
+            <p class="sub">Meaningful, performant charts.</p>
+            <div class="progress" data-value="92"><i></i></div>
+          </div>
+          <div class="skill reveal">
+            <h4>Frontend Engineering</h4>
+            <p class="sub">Modern, maintainable code.</p>
+            <div class="progress" data-value="88"><i></i></div>
+          </div>
+          <div class="skill reveal">
+            <h4>Motion & Interactions</h4>
+            <p class="sub">Interfaces that feel alive.</p>
+            <div class="progress" data-value="80"><i></i></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+      <div class="container">
+        <div class="section-head">
+          <h2>Let’s Build Something</h2>
+          <p class="sub">
+            Tell me about your idea, timeline, and goals — I’ll reply with a
+            clear plan and estimate.
+          </p>
+        </div>
+        <div class="grid">
+          <div class="card reveal" style="grid-column: span 5">
+            <h3>Why work with me?</h3>
+            <p>
+              Fast communication, crisp design, and production‑ready code. I
+              focus on outcomes: speed to market, operational efficiency, and
+              clear metrics.
+            </p>
+            <div class="tag-row">
+              <span class="chip">Available for freelance</span>
+              <span class="chip">Remote friendly</span>
+            </div>
+          </div>
+          <div class="card reveal" style="grid-column: span 7">
+            <form
+              id="contactForm"
+              action="https://formspree.io/f/myzdgqzb"
+              method="POST"
+              enctype="multipart/form-data"
+            >
+              <div class="field">
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="*Your name"
+                  required
+                />
+              </div>
+              <div class="field">
+                <input type="tel" name="tel" placeholder="Contact number" />
+              </div>
+              <div class="field full">
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="*Email address"
+                  required
+                />
+              </div>
+              <div class="field full">
+                <input
+                  type="text"
+                  name="subject"
+                  placeholder="Project or goal"
+                />
+              </div>
+              <div class="field full">
+                <textarea
+                  name="message"
+                  placeholder="*What are we building and why?"
+                  required
+                ></textarea>
+              </div>
+              <div>
+                <button class="btn accent" type="submit">Send Message</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container">© 2025 • by Hogben.Solutions</div>
+    </footer>
+
+    <!-- Sticky CTA -->
+    <a
+      class="btn accent sticky-cta"
+      href="#contact"
+      aria-label="Start a Project"
+      >Start a Project</a
+    >
+
+    <script src="script.js"></script>
+  </body>
+</html>
