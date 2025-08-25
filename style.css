@@ -524,6 +524,23 @@ section {
   gap: var(--gap);
   margin-bottom: 26px;
 }
+
+@media screen and (max-width: 900px) {
+  .section-head {
+    /* display: flex; */
+    align-items: center;
+    flex-direction: column;
+  }
+
+  #contact .grid {
+    display: flex;
+    flex-direction: column;
+  }
+  section {
+    padding-bottom: 0px;
+  }
+}
+
 section h2 {
   font-size: clamp(28px, 3.5vw, 40px);
   margin: 0;
