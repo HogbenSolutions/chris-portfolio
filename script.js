@@ -7,10 +7,11 @@ menuBtn?.addEventListener("click", () => {
 });
 
 // Fade header on scroll with delay
-(function () {
+(() => {
   const header = document.querySelector("header");
   let faded = false;
   let timeout = null;
+  let lastScrollY = window.scrollY;
 
   function fadeHeader() {
     if (!faded && window.scrollY > 20) {
@@ -27,9 +28,21 @@ menuBtn?.addEventListener("click", () => {
     }
   }
 
-  window.addEventListener("scroll", fadeHeader, { passive: true });
+  let ticking = false;
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          fadeHeader();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    },
+    { passive: true }
+  );
 
-  // Restore opacity on hover, fade again on mouse leave if scrolled
   header.addEventListener("mouseenter", () => {
     header.style.opacity = "1";
   });
@@ -71,9 +84,8 @@ function goTo(i) {
 }
 
 function updateDots() {
-  dotsWrap
-    .querySelectorAll(".dot-btn")
-    .forEach((d, i) => d.classList.toggle("active", i === index));
+  const dotBtns = dotsWrap.querySelectorAll(".dot-btn");
+  dotBtns.forEach((d, i) => d.classList.toggle("active", i === index));
 }
 function next() {
   goTo(index + 1);
@@ -82,8 +94,8 @@ function prev() {
   goTo(index - 1);
 }
 
-nextBtn.addEventListener("click", next);
-prevBtn.addEventListener("click", prev);
+nextBtn?.addEventListener("click", next);
+prevBtn?.addEventListener("click", prev);
 
 function startAutoplay() {
   stopAutoplay();
@@ -96,8 +108,9 @@ function restartAutoplay() {
   startAutoplay();
 }
 
-document.querySelector(".slider").addEventListener("mouseenter", stopAutoplay);
-document.querySelector(".slider").addEventListener("mouseleave", startAutoplay);
+const slider = document.querySelector(".slider");
+slider?.addEventListener("mouseenter", stopAutoplay);
+slider?.addEventListener("mouseleave", startAutoplay);
 
 // Keyboard + Touch
 window.addEventListener("keydown", (e) => {
@@ -105,12 +118,14 @@ window.addEventListener("keydown", (e) => {
   if (e.key === "ArrowLeft") prev();
 });
 let touchStartX = 0;
-document
-  .querySelector(".slider")
-  .addEventListener("touchstart", (e) => (touchStartX = e.touches[0].clientX), {
+slider?.addEventListener(
+  "touchstart",
+  (e) => (touchStartX = e.touches[0].clientX),
+  {
     passive: true,
-  });
-document.querySelector(".slider").addEventListener("touchend", (e) => {
+  }
+);
+slider?.addEventListener("touchend", (e) => {
   const dx = e.changedTouches[0].clientX - touchStartX;
   if (Math.abs(dx) > 40) dx < 0 ? next() : prev();
 });
@@ -260,9 +275,11 @@ function playChart(slideEl) {
 }
 
 // Initialize
-mountDots();
-playChart(slides[0]);
-startAutoplay();
+if (slides.length) {
+  mountDots();
+  playChart(slides[0]);
+  startAutoplay();
+}
 
 // Reveal on scroll
 const io = new IntersectionObserver(
@@ -313,5 +330,28 @@ function onScroll() {
   });
   navLinks.forEach((a, i) => a.classList.toggle("active", i === active));
 }
-window.addEventListener("scroll", onScroll);
+window.addEventListener("scroll", () => {
+  window.requestAnimationFrame(onScroll);
+});
 onScroll();
+
+// Hide "Start a Project" button when in #contact section
+(function () {
+  const ctaBtn = document.querySelector(".sticky-cta");
+  const contactSection = document.getElementById("contact");
+  if (!ctaBtn || !contactSection) return;
+
+  function toggleCTA() {
+    const rect = contactSection.getBoundingClientRect();
+    // If top of contact section is within viewport, hide button
+    if (rect.top <= window.innerHeight && rect.bottom >= 0) {
+      ctaBtn.style.display = "none";
+    } else {
+      ctaBtn.style.display = "";
+    }
+  }
+
+  window.addEventListener("scroll", toggleCTA, { passive: true });
+  window.addEventListener("resize", toggleCTA);
+  toggleCTA();
+})();
