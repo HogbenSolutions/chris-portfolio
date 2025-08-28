@@ -579,6 +579,10 @@ section p.sub {
   margin-bottom: 14px;
   position: relative;
   overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .thumb::after {
   content: "";
@@ -602,6 +606,17 @@ section p.sub {
 .card img {
   max-width: 100%;
   display: block;
+}
+.centered-img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+  height: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 .tag-row {
   display: flex;
