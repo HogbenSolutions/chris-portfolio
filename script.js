@@ -261,16 +261,265 @@ function drawDonutChart(canvas, slices) {
   });
 }
 
+// Chart cycling for Analytics/Reports slide with header update
+const chartTypes = [
+  {
+    type: "line",
+    title: "Monthly Analytics",
+    chip: "+18%",
+    meta: "Line chart — user activity breakdown",
+  },
+  {
+    type: "bar",
+    title: "Monthly Analytics",
+    chip: "+18%",
+    meta: "Bar chart — user activity breakdown",
+  },
+  {
+    type: "donut",
+    title: "Monthly Analytics",
+    chip: "+18%",
+    meta: "Donut chart — user activity breakdown",
+  },
+];
+let chartCycleIndex = 0;
+let chartCycleTimer = null;
+
+function cycleAnalyticsChart(slideEl, canvas) {
+  clearInterval(chartCycleTimer);
+  function showChart() {
+    const chartInfo = chartTypes[chartCycleIndex % chartTypes.length];
+    canvas.dataset.type = chartInfo.type;
+    // Update chart header
+    const chartTitle = slideEl.querySelector(".chart-title strong");
+    const chartChip = slideEl.querySelector(".chart-title .chip");
+    const chartMeta = slideEl.querySelector(".chart-meta");
+    if (chartTitle) chartTitle.textContent = chartInfo.title;
+    if (chartChip) chartChip.textContent = chartInfo.chip;
+    if (chartMeta) chartMeta.textContent = chartInfo.meta;
+
+    if (chartInfo.type === "line") {
+      drawLineChart(canvas, canvas.dataset.points.split(",").map(Number));
+    } else if (chartInfo.type === "bar") {
+      drawBarChart(canvas, canvas.dataset.bars.split(",").map(Number));
+    } else if (chartInfo.type === "donut") {
+      drawDonutChart(canvas, canvas.dataset.slices.split(",").map(Number));
+    }
+    chartCycleIndex++;
+  }
+  showChart();
+  chartCycleTimer = setInterval(showChart, 2500); // Change chart every 2.5s
+}
+
+// Custom animation for Website slide
+function animateWebsiteLaunch(canvas) {
+  const ctx = setupCanvas(canvas);
+  const { width, height } = canvas.getBoundingClientRect();
+  animate(1200, (t) => {
+    clearCanvas(ctx);
+    ctx.globalAlpha = 0.9;
+    ctx.fillStyle = "#7c5cff";
+    ctx.font = "bold 32px sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText("Launching...", width / 2, height / 2 - 10);
+    ctx.globalAlpha = t;
+    ctx.beginPath();
+    ctx.arc(width / 2, height / 2 + 30, 24 * t, 0, Math.PI * 2);
+    ctx.fillStyle = "#22d1ee";
+    ctx.fill();
+  });
+}
+
+// Declare these at the top level, outside any function
+let shrink = 1;
+let shrinkActive = false;
+let shrinkStart = 0;
+let shrinkDelayStarted = false;
+let shrinkDelayStart = 0;
+
+// Custom animation for Login/Permissions slide
+function animateLockRoles(canvas) {
+  const ctx = setupCanvas(canvas);
+  const { width, height } = canvas.getBoundingClientRect();
+  const inputW = 180,
+    inputH = 32;
+  const centerX = width / 2,
+    centerY = height / 2;
+  const username = "Admin";
+  const password = "••••••••";
+  const boxHeight = 170;
+
+  animate(1200, (t) => {
+    clearCanvas(ctx);
+
+    // Draw login box
+    ctx.globalAlpha = 0.95;
+    ctx.fillStyle = "#181c2a";
+    ctx.strokeStyle = "#7c5cff";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.roundRect(
+      centerX - inputW / 2 - 16,
+      centerY - 70,
+      inputW + 32,
+      boxHeight,
+      16
+    );
+    ctx.fill();
+    ctx.stroke();
+
+    // Username label
+    ctx.globalAlpha = 1;
+    ctx.font = "bold 16px sans-serif";
+    ctx.fillStyle = "#fff";
+    ctx.textAlign = "left";
+    ctx.fillText("Username", centerX - inputW / 2, centerY - 42);
+
+    // Username input
+    ctx.globalAlpha = 0.9;
+    ctx.fillStyle = "#22263a";
+    ctx.strokeStyle = "#22d1ee";
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.roundRect(centerX - inputW / 2, centerY - 30, inputW, inputH, 8);
+    ctx.fill();
+    ctx.stroke();
+
+    // Animate typing username first, then password
+    ctx.globalAlpha = 1;
+    ctx.font = "16px monospace";
+    ctx.fillStyle = "#7c5cff";
+    let usernameChars = Math.floor(username.length * Math.min(1, t * 2));
+    ctx.fillText(
+      username.slice(0, usernameChars),
+      centerX - inputW / 2 + 12,
+      centerY - 8
+    );
+
+    // Password label
+    ctx.font = "bold 16px sans-serif";
+    ctx.fillStyle = "#fff";
+    ctx.fillText("Password", centerX - inputW / 2, centerY + 22);
+
+    // Password input
+    ctx.globalAlpha = 0.9;
+    ctx.fillStyle = "#22263a";
+    ctx.strokeStyle = "#ff7ad9";
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.roundRect(centerX - inputW / 2, centerY + 34, inputW, inputH, 8);
+    ctx.fill();
+    ctx.stroke();
+
+    // Password value (animated typing after username is done)
+    ctx.globalAlpha = 1;
+    ctx.font = "16px monospace";
+    ctx.fillStyle = "#ff7ad9";
+    let passwordChars = 0;
+    if (t > 0.5) {
+      passwordChars = Math.floor(password.length * (t - 0.5) * 2);
+    }
+    ctx.fillText(
+      password.slice(0, passwordChars),
+      centerX - inputW / 2 + 12,
+      centerY + 56
+    );
+
+    // Draw login button (always normal size)
+    ctx.save();
+    ctx.globalAlpha = 0.85;
+    ctx.translate(centerX, centerY + 96);
+    ctx.fillStyle = "#22d1ee";
+    ctx.beginPath();
+    ctx.roundRect(-48, -16, 96, 32, 8);
+    ctx.fill();
+    ctx.globalAlpha = 1;
+    ctx.font = "bold 16px sans-serif";
+    ctx.fillStyle = "#fff";
+    ctx.textAlign = "center";
+    ctx.fillText("Login", 0, 6);
+    ctx.restore();
+
+    // Draw cursor LAST so it's above the button and click effect
+    if (t > 0.7) {
+      const cursorStartX = centerX + inputW / 2 + 40;
+      const cursorStartY = centerY + 56;
+      const cursorEndX = centerX;
+      const cursorEndY = centerY + 96;
+      const cursorProgress = Math.min(1, (t - 0.7) / 0.3);
+      const curX = cursorStartX + (cursorEndX - cursorStartX) * cursorProgress;
+      const curY = cursorStartY + (cursorEndY - cursorStartY) * cursorProgress;
+
+      ctx.save();
+      ctx.globalAlpha = 1;
+      ctx.shadowColor = "rgba(0,0,0,0.15)";
+      ctx.shadowBlur = 6;
+      ctx.translate(curX, curY); // Move origin to cursor tip
+      ctx.scale(0.8, 0.8); // Scale down to 80%
+      // Draw white background triangle (slightly larger)
+      ctx.beginPath();
+      ctx.moveTo(-2, -6); // tip
+      ctx.lineTo(28, 34); // bottom right
+      ctx.lineTo(12, 34); // bottom middle
+      ctx.lineTo(-2, 44); // bottom left
+      ctx.closePath();
+      ctx.fillStyle = "#fff";
+      ctx.fill();
+      // Draw black triangle cursor on top
+      ctx.beginPath();
+      ctx.moveTo(0, 0); // tip
+      ctx.lineTo(24, 32); // bottom right
+      ctx.lineTo(10, 32); // bottom middle
+      ctx.lineTo(0, 40); // bottom left
+      ctx.closePath();
+      ctx.fillStyle = "#111";
+      ctx.fill();
+      ctx.restore();
+    }
+  });
+}
+
+// Play chart or custom animation based on slide
 function playChart(slideEl) {
   const canvas = slideEl.querySelector("canvas.chart");
   if (!canvas) return;
-  const type = canvas.dataset.type;
-  if (type === "line") {
-    drawLineChart(canvas, canvas.dataset.points.split(",").map(Number));
-  } else if (type === "bar") {
-    drawBarChart(canvas, canvas.dataset.bars.split(",").map(Number));
-  } else if (type === "donut") {
-    drawDonutChart(canvas, canvas.dataset.slices.split(",").map(Number));
+  const slideIndex = Array.from(slideEl.parentNode.children).indexOf(slideEl);
+
+  // Analytics/Reports slide (slide 2)
+  if (slideIndex === 1) {
+    cycleAnalyticsChart(slideEl, canvas);
+    return;
+  }
+  clearInterval(chartCycleTimer);
+
+  // Website slide (slide 1)
+  if (slideIndex === 0) {
+    animateWebsiteLaunch(canvas);
+    // Optionally update header for this slide
+    const chartTitle = slideEl.querySelector(".chart-title strong");
+    const chartChip = slideEl.querySelector(".chart-title .chip");
+    const chartMeta = slideEl.querySelector(".chart-meta");
+    if (chartTitle) chartTitle.textContent = "Website Launches";
+    if (chartChip) chartChip.textContent = "Live";
+    if (chartMeta)
+      chartMeta.textContent =
+        "Single or multi-page websites like this one in as little as 2-3days";
+    return;
+  }
+
+  // Login/Permissions slide (slide 3)
+  if (slideIndex === 2) {
+    animateLockRoles(canvas);
+    // Optionally update header for this slide
+    const chartTitle = slideEl.querySelector(".chart-title strong");
+    const chartChip = slideEl.querySelector(".chart-title .chip");
+    const chartMeta = slideEl.querySelector(".chart-meta");
+    if (chartTitle) chartTitle.textContent = "User Roles";
+    if (chartChip) chartChip.textContent = "Set Permissions";
+    if (chartMeta)
+      chartMeta.textContent =
+        "Set roles for staff (Admins, Sales, Support etc), with varying permissions.";
+    return;
   }
 }
 
