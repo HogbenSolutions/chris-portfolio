@@ -269,21 +269,18 @@
     <!-- Trust bar -->
     <div class="trust container">
       <div class="trust-inner">
-        <b>Tools and frameworks:</b>
-        <span class="logo-pill">HTML</span>
-        <span class="logo-pill">CSS</span>
-        <span class="logo-pill">JavaScript</span>
-        <span class="logo-pill">Node JS</span>
-        <span class="logo-pill">jQuery</span>
-        <span class="logo-pill">React</span>
-        <span class="logo-pill">MongoDB</span>
-        <span class="logo-pill">Mongoose</span>
-        <span class="logo-pill">Express</span>
-        <span class="logo-pill">Git</span>
-        <span class="logo-pill">Bootstrap</span>
-        <span class="logo-pill">NoSQL</span>
-        <span class="logo-pill">Stripe</span>
-        <span class="logo-pill">NPM</span>
+        <b>Trusted by:</b>
+        <span class="logo-pill">
+          <img
+            style="background-color: #fff"
+            src="https://functions.rblcdn.co.uk/sitefinity/images/default-source/logos/the-royal-british-legion-logo.svg?sfvrsn=ae34d0e_4&method=CropCropArguments&width=281&height=181&Signature=C1CE740F0057A26426F3B15A2BF55780E4063919"
+            alt="Royal British Legion Logo"
+            class="rbl-logo-img"
+          />Royal British Legion</span
+        >
+        <span class="logo-pill">Orchid Reiki</span>
+        <span class="logo-pill">Modelling Management</span>
+        <span class="logo-pill">and many more...</span>
       </div>
     </div>
 
@@ -353,19 +350,22 @@
             </div>
           </article>
           <!-- <article class="card reveal">
+          <article class="card reveal">
             <div class="thumb"></div>
-            <h3>Authentification & Authorisation</h3>
+            <h3>Enquiry Process</h3>
             <p>
-              Safe and secure logins, with set permissions based on user role.
-              Admin, manager, staff, customer etc.
+              If you already know how you'd like your website to look, and what
+              features you require (if any), then most of the work is done!
             </p>
             <div class="tag-row">
-              <span class="chip">Login</span>
-              <span class="chip">CRUD</span>
-              <span class="chip">JWTs</span>
+              <span class="chip">Enquire</span>
+              <span class="chip">Quote</span>
+              <span class="chip">Multiple Reviews</span>
+              <span class="chip">Final Approval</span>
+              <span class="chip">GO LIVE</span>
             </div>
           </article>
-          <article class="card reveal">
+        <article class="card reveal">
             <div class="thumb"></div>
             <h3>CRUD Operations</h3>
             <p>
@@ -430,6 +430,26 @@
       </div>
     </section>
 
+    <div class="trust container">
+      <div class="trust-inner">
+        <b>Tools and frameworks:</b>
+        <span class="logo-pill">HTML</span>
+        <span class="logo-pill">CSS</span>
+        <span class="logo-pill">JavaScript</span>
+        <span class="logo-pill">Node JS</span>
+        <span class="logo-pill">jQuery</span>
+        <span class="logo-pill">React</span>
+        <span class="logo-pill">MongoDB</span>
+        <span class="logo-pill">Mongoose</span>
+        <span class="logo-pill">Express</span>
+        <span class="logo-pill">Git</span>
+        <span class="logo-pill">Bootstrap</span>
+        <span class="logo-pill">NoSQL</span>
+        <span class="logo-pill">Stripe</span>
+        <span class="logo-pill">NPM</span>
+      </div>
+    </div>
+
     <!-- Contact -->
     <section id="contact">
       <div class="container">
@@ -466,10 +486,16 @@
                   name="name"
                   placeholder="*Your name"
                   required
+                  autocomplete="name"
                 />
               </div>
               <div class="field">
-                <input type="tel" name="tel" placeholder="Contact number" />
+                <input
+                  type="tel"
+                  name="tel"
+                  placeholder="Contact number"
+                  autocomplete="tel"
+                />
               </div>
               <div class="field full">
                 <input
@@ -477,6 +503,7 @@
                   name="email"
                   placeholder="*Email address"
                   required
+                  autocomplete="email"
                 />
               </div>
               <div class="field full">
@@ -484,6 +511,7 @@
                   type="text"
                   name="subject"
                   placeholder="Project or goal"
+                  autocomplete="off"
                 />
               </div>
               <div class="field full">
@@ -491,6 +519,7 @@
                   name="message"
                   placeholder="*What are we building and why?"
                   required
+                  autocomplete="off"
                 ></textarea>
               </div>
               <div>
