@@ -133,9 +133,13 @@ slider?.addEventListener("touchend", (e) => {
 // Simple Canvas Charts
 const DPR = Math.min(2, window.devicePixelRatio || 1);
 function setupCanvas(canvas) {
+  // Set a minimum width and height for the canvas to prevent negative radius
+  const minSize = 80; // You can adjust this value as needed
   const rect = canvas.getBoundingClientRect();
-  canvas.width = rect.width * DPR;
-  canvas.height = rect.height * DPR;
+  const width = Math.max(rect.width, minSize);
+  const height = Math.max(rect.height, minSize);
+  canvas.width = width * DPR;
+  canvas.height = height * DPR;
   const ctx = canvas.getContext("2d");
   ctx.scale(DPR, DPR);
   return ctx;
@@ -237,27 +241,66 @@ function drawBarChart(canvas, bars) {
 function drawDonutChart(canvas, slices) {
   const ctx = setupCanvas(canvas);
   const { width, height } = canvas.getBoundingClientRect();
-  const r = Math.min(width, height) / 2 - 18;
-  const cx = width / 2;
-  const cy = height / 2 + 10;
-  const total = slices.reduce((a, b) => a + b, 0);
+
+  // Ensure canvas is always large enough for a donut chart
+  const minSize = 120;
+  const w = Math.max(width, minSize);
+  const h = Math.max(height, minSize);
+
+  // Donut chart dimensions
+  const cx = w / 2;
+  const cy = h / 2;
+  const outerRadius = Math.max(22, Math.min(w, h) / 2 - 10); // Always >= lineWidth
+  const innerRadius = Math.max(1, outerRadius * 0.65); // Always positive
+
+  // Colors (keep existing palette)
   const colors = ["#7c5cff", "#22d1ee", "#ff7ad9", "#5eead4"];
+  const total = slices.reduce((a, b) => a + b, 0);
+
   animate(1000, (t) => {
     clearCanvas(ctx);
-    let start = -Math.PI / 2;
-    slices.forEach((v, i) => {
-      const angle = (v / total) * Math.PI * 2 * t;
-      ctx.beginPath();
-      ctx.arc(cx, cy, r, start, start + angle);
-      ctx.lineWidth = 22;
-      ctx.strokeStyle = colors[i % colors.length];
-      ctx.stroke();
-      start += angle;
+
+    // Draw donut slices
+    let startAngle = -Math.PI / 2;
+    slices.forEach((value, i) => {
+      const sliceAngle = (value / total) * Math.PI * 2 * t;
+      if (sliceAngle > 0) {
+        ctx.beginPath();
+        ctx.arc(
+          cx,
+          cy,
+          outerRadius,
+          startAngle,
+          startAngle + sliceAngle,
+          false
+        );
+        ctx.arc(cx, cy, innerRadius, startAngle + sliceAngle, startAngle, true);
+        ctx.closePath();
+        ctx.fillStyle = colors[i % colors.length];
+        ctx.globalAlpha = 0.92;
+        ctx.fill();
+      }
+      startAngle += sliceAngle;
     });
-    ctx.fillStyle = "rgba(255,255,255,.08)";
+
+    // Draw inner shadow for glass effect
+    ctx.save();
+    ctx.globalAlpha = 0.13;
     ctx.beginPath();
-    ctx.arc(cx, cy, r - 18, 0, Math.PI * 2);
+    ctx.arc(cx, cy, innerRadius, 0, Math.PI * 2);
+    ctx.fillStyle = "#fff";
     ctx.fill();
+    ctx.restore();
+
+    // Optional: Draw a subtle border around the donut
+    ctx.save();
+    ctx.globalAlpha = 0.18;
+    ctx.beginPath();
+    ctx.arc(cx, cy, outerRadius, 0, Math.PI * 2);
+    ctx.lineWidth = 4;
+    ctx.strokeStyle = "#22263a";
+    ctx.stroke();
+    ctx.restore();
   });
 }
 
@@ -315,19 +358,98 @@ function cycleAnalyticsChart(slideEl, canvas) {
 function animateWebsiteLaunch(canvas) {
   const ctx = setupCanvas(canvas);
   const { width, height } = canvas.getBoundingClientRect();
-  animate(1200, (t) => {
+
+  const pageW = Math.max(80, width * 0.32);
+  const pageH = Math.max(60, height * 0.45);
+  const gap = 24;
+  const pages = [
+    { color: "#7c5cff" },
+    { color: "#22d1ee" },
+    { color: "#ff7ad9" },
+  ];
+
+  let start = null;
+  function frame(now) {
+    if (!start) start = now;
+    const elapsed = (now - start) / 1000; // seconds
+    const rotation = elapsed * Math.PI * 0.5; // adjust speed as needed
+
     clearCanvas(ctx);
-    ctx.globalAlpha = 0.9;
-    ctx.fillStyle = "#7c5cff";
-    ctx.font = "bold 32px sans-serif";
-    ctx.textAlign = "center";
-    ctx.fillText("Launching...", width / 2, height / 2 - 10);
-    ctx.globalAlpha = t;
+
+    // Draw each page with a rotation effect
+    pages.forEach((page, i) => {
+      const angle = rotation + i * ((2 * Math.PI) / pages.length);
+      const radius = pageW + gap;
+      const x = width / 2 + Math.cos(angle) * radius;
+      const y = height / 2 + Math.sin(angle) * 18;
+      const scale = 0.7 + 0.3 * (1 + Math.sin(angle));
+
+      ctx.save();
+      ctx.globalAlpha = 0.88 * scale;
+      ctx.translate(x, y);
+      ctx.scale(scale, scale);
+      ctx.fillStyle = page.color;
+      ctx.strokeStyle = "#fff";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.roundRect(-pageW / 2, -pageH / 2, pageW, pageH, 18);
+      ctx.fill();
+      ctx.stroke();
+
+      // Simulate page content with lines
+      ctx.globalAlpha = 0.18 * scale;
+      ctx.fillStyle = "#fff";
+      for (let l = 0; l < 5; l++) {
+        ctx.fillRect(-pageW / 2 + 18, -pageH / 2 + 18 + l * 16, pageW - 36, 7);
+      }
+      ctx.restore();
+    });
+
+    // Draw a browser bar above the pages
+    ctx.save();
+    ctx.globalAlpha = 0.92;
+    ctx.fillStyle = "#181c2a";
+    ctx.strokeStyle = "#22263a";
+    ctx.lineWidth = 2;
+    const barW = pageW * 3 + gap;
+    const barH = 28;
     ctx.beginPath();
-    ctx.arc(width / 2, height / 2 + 30, 24 * t, 0, Math.PI * 2);
-    ctx.fillStyle = "#22d1ee";
+    ctx.roundRect(
+      width / 2 - barW / 2,
+      height / 2 - pageH / 2 - barH - 8,
+      barW,
+      barH,
+      12
+    );
     ctx.fill();
-  });
+    ctx.stroke();
+
+    // Browser "buttons"
+    ctx.globalAlpha = 0.45;
+    ["#ff7ad9", "#22d1ee", "#7c5cff"].forEach((c, i) => {
+      ctx.beginPath();
+      ctx.arc(
+        width / 2 - barW / 2 + 18 + i * 18,
+        height / 2 - pageH / 2 - barH / 2 - 8,
+        6,
+        0,
+        Math.PI * 2
+      );
+      ctx.fillStyle = c;
+      ctx.fill();
+    });
+    ctx.restore();
+
+    // Title text
+    ctx.globalAlpha = 1;
+    ctx.font = "bold 28px sans-serif";
+    ctx.fillStyle = "#fff";
+    ctx.textAlign = "center";
+    ctx.fillText("Multi-page Website", width / 2, height / 2 + pageH / 2 + 80);
+
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
 }
 
 // Declare these at the top level, outside any function
