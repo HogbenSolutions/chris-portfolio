@@ -16,6 +16,62 @@
   --container: 1200px;
   --gap: clamp(16px, 2vw, 28px);
 }
+
+/* Light mode variables */
+:root.light {
+  --bg: #f7f8fa;
+  --bg-2: #eef2ff;
+  --text: #181c2a;
+  --muted: #5a627a;
+  --accent: #7c5cff;
+  --accent-2: #22d1ee;
+  --accent-3: #ff7ad9;
+  --accent-4: #5eead4;
+  --glass: rgba(0, 0, 0, 0.04);
+  --card: rgba(0, 0, 0, 0.06);
+  --border: rgba(0, 0, 0, 0.12);
+  --shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+}
+
+/* Light mode background override */
+body.light {
+  background: #f7f8fa;
+}
+
+/* Optional: Light mode for aurora effect */
+body.light .aurora {
+  opacity: 0.18;
+  filter: blur(60px) brightness(1.2);
+}
+
+/* Optional: Light mode for chart cards, pills, etc. */
+body.light .chart-card,
+body.light .logo-pill,
+body.light .chip,
+body.light .trust-inner,
+body.light .card,
+body.light .skill {
+  background: var(--glass);
+  border-color: var(--border);
+  color: var(--text);
+}
+
+body.light .chart-title .chip {
+  background: rgba(124, 92, 255, 0.1);
+  border-color: rgba(124, 92, 255, 0.22);
+  color: #7c5cff;
+}
+
+body.light .arrow {
+  background: var(--glass);
+  border-color: var(--border);
+  color: var(--text);
+}
+
+body.light .btn.accent {
+  color: #fff;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -267,6 +323,9 @@ header {
   .mobile-drawer.open {
     display: flex;
   }
+  .dots {
+    display: none !important;
+  }
 }
 .mobile-drawer {
   display: none;
@@ -276,7 +335,7 @@ header {
 .slider {
   position: relative;
   overflow: hidden;
-  padding: 0;
+  padding: 0px 0px 50px 0px;
 }
 .slides {
   position: relative;
@@ -483,13 +542,22 @@ canvas.chart {
 .trust-inner {
   display: flex;
   align-items: center;
-  gap: 26px;
   justify-content: center;
   flex-wrap: wrap;
+  margin-top: 0px;
+  gap: 12px;
   padding: 12px 18px;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid var(--border);
   border-radius: 16px;
+}
+/* Center and move the <b> element to the top inside .trust-inner */
+.trust-inner > b {
+  width: 100%;
+  text-align: center;
+  display: block;
+  margin-bottom: 0.5em;
+  order: -1; /* Ensure it's first in flex order */
 }
 .trust b {
   opacity: 0.9;
@@ -502,9 +570,31 @@ canvas.chart {
   color: var(--muted);
 }
 
+/* Ensure images inside .logo-pill fit nicely */
+.logo-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--glass);
+  color: var(--muted);
+  box-sizing: border-box;
+  white-space: nowrap;
+}
+
+.logo-pill img {
+  width: 1.2em;
+  height: 1.2em;
+  object-fit: contain;
+  display: inline-block;
+  vertical-align: middle;
+}
+
 /* sections */
 section {
-  padding: 80px 0;
+  padding: 60px 0;
   position: relative;
 }
 .section-head {
@@ -525,9 +615,6 @@ section {
   #contact .grid {
     display: flex;
     flex-direction: column;
-  }
-  section {
-    padding-bottom: 0px;
   }
 }
 
@@ -745,4 +832,23 @@ footer {
     width: 42px;
     height: 42px;
   }
+}
+
+body.light .brand {
+  background: #22d1ee !important;
+}
+
+body.light #desktopLinks {
+  background: #ff7ad9 !important;
+}
+
+body.light #announcementBar p {
+  background: #7c5cff !important;
+}
+
+/* Light mode: make links in nav and announcement bar white */
+body.light .nav a,
+body.light #announcementBar a,
+body.light .brand span {
+  color: #fff !important;
 }
