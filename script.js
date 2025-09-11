@@ -794,4 +794,77 @@ document.addEventListener("DOMContentLoaded", () => {
       localStorage.setItem("theme", "dark");
     }
   });
+
+  // Mobile toggle logic
+  const themeSwitchMobile = document.getElementById("themeSwitchMobile");
+  const themeKnobMobile = document.getElementById("themeKnobMobile");
+  const themeBarMobile = themeKnobMobile ? themeKnobMobile.parentElement : null;
+
+  // Sync initial state
+  let themeMobile = localStorage.getItem("theme") || "dark";
+  if (themeSwitchMobile && themeKnobMobile && themeBarMobile) {
+    if (themeMobile === "light") {
+      themeSwitchMobile.checked = true;
+      themeBarMobile.style.background = "#22d1ee";
+      themeKnobMobile.style.left = "20px";
+    } else {
+      themeSwitchMobile.checked = false;
+      themeBarMobile.style.background = "#888";
+      themeKnobMobile.style.left = "2px";
+    }
+
+    themeSwitchMobile.addEventListener("change", () => {
+      if (themeSwitchMobile.checked) {
+        document.documentElement.classList.add("light");
+        document.body.classList.add("light");
+        themeBarMobile.style.background = "#22d1ee";
+        themeKnobMobile.style.left = "20px";
+        localStorage.setItem("theme", "light");
+      } else {
+        document.documentElement.classList.remove("light");
+        document.body.classList.remove("light");
+        themeBarMobile.style.background = "#888";
+        themeKnobMobile.style.left = "2px";
+        localStorage.setItem("theme", "dark");
+      }
+      // Sync desktop toggle if present
+      const themeSwitch = document.getElementById("themeSwitch");
+      if (themeSwitch) themeSwitch.checked = themeSwitchMobile.checked;
+    });
+  }
+});
+
+// script.js
+document.addEventListener("DOMContentLoaded", () => {
+  const announcementBar = document.getElementById("announcementBar");
+  const closeBtn = document.getElementById("closeAnnouncement");
+  let closed = localStorage.getItem("announcementClosed") === "true";
+  let hoverActive = false;
+
+  // Show bar on load unless previously closed
+  if (closed) {
+    announcementBar.style.display = "none";
+  } else {
+    announcementBar.style.display = "flex";
+  }
+
+  // Close button logic
+  closeBtn.addEventListener("click", () => {
+    announcementBar.style.display = "none";
+    localStorage.setItem("announcementClosed", "true");
+    closed = true;
+  });
+
+  // Show bar when cursor at top, hide when not (if previously closed)
+  document.addEventListener("mousemove", (e) => {
+    if (closed) {
+      if (e.clientY < 40 && !hoverActive) {
+        announcementBar.style.display = "flex";
+        hoverActive = true;
+      } else if (e.clientY >= 40 && hoverActive) {
+        announcementBar.style.display = "none";
+        hoverActive = false;
+      }
+    }
+  });
 });
