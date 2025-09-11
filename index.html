@@ -66,6 +66,19 @@
       <announcement class="container">
         <div id="announcementBar">
           <p>*** Websites from £199 ***</p>
+          <button
+            id="closeAnnouncement"
+            style="
+              margin-left: 10px;
+              background: none;
+              border: none;
+              color: #fff;
+              font-size: 16px;
+              cursor: pointer;
+            "
+          >
+            ×
+          </button>
         </div>
       </announcement>
       <nav class="nav container">
@@ -132,6 +145,44 @@
         <a href="#work">Work</a>
         <a href="#skills">Skills</a>
         <a href="#contact">Contact</a>
+        <!-- Theme toggle switch for mobile -->
+        <label
+          id="themeToggleMobile"
+          style="
+            margin-top: 1em;
+            display: inline-flex;
+            align-items: center;
+            cursor: pointer;
+          "
+        >
+          <input type="checkbox" id="themeSwitchMobile" style="display: none" />
+          <span
+            style="
+              width: 40px;
+              height: 22px;
+              background: #888;
+              border-radius: 11px;
+              position: relative;
+              display: inline-block;
+              transition: background 0.2s;
+            "
+            ><span
+              id="themeKnobMobile"
+              style="
+                position: absolute;
+                left: 2px;
+                top: 2px;
+                width: 18px;
+                height: 18px;
+                background: #fff;
+                border-radius: 50%;
+                box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+                transition: left 0.2s;
+              "
+            ></span>
+          </span>
+          <span style="margin-left: 0.5em; font-size: 0.95em">Light Mode</span>
+        </label>
       </div>
     </header>
 
@@ -582,6 +633,6 @@
       >Start a Project</a
     >
 
-    <script src="script.js"></script>
+    <script defer src="script.js"></script>
   </body>
 </html>
