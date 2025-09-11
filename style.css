@@ -177,16 +177,34 @@ body {
   background: var(--glass);
 }
 
+#announcementBar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  padding: 0px;
+}
+
 #announcementBar p {
-  background: #0c0e1899;
-  backdrop-filter: blur(8px);
-  color: #eef2ff;
+  flex: 1;
+  margin: 0;
   text-align: center;
-  font-size: 14px;
-  z-index: 100;
-  height: 26px;
-  align-content: center;
-  margin: 0px;
+  padding: 4px;
+}
+
+#closeAnnouncement {
+  position: absolute;
+  top: 50%;
+  right: 18px;
+  transform: translateY(-50%);
+  background: transparent !important;
+  border: none;
+  color: #fff;
+  font-size: 22px;
+  cursor: pointer;
+  padding: 0 8px;
+  z-index: 2;
 }
 
 /* header */
@@ -266,29 +284,31 @@ header {
 }
 .menu-toggle span {
   position: absolute;
-  left: 10px;
-  right: 10px;
-  height: 2px;
+  left: 12px;
+  right: 12px;
+  height: 4px; /* Thicker lines */
   background: #fff;
+  border-radius: 2px;
   transition: 0.25s ease;
+  top: 18px; /* Centralise the first line */
 }
 .menu-toggle span:nth-child(1) {
-  top: 14px;
+  top: 18px;
 }
 .menu-toggle span:nth-child(2) {
-  top: 21px;
+  top: 29px;
 }
 .menu-toggle span:nth-child(3) {
-  top: 28px;
+  top: 40px;
 }
 .menu-toggle.open span:nth-child(1) {
-  transform: translateY(7px) rotate(45deg);
+  transform: translateY(11px) rotate(45deg);
 }
 .menu-toggle.open span:nth-child(2) {
   opacity: 0;
 }
 .menu-toggle.open span:nth-child(3) {
-  transform: translateY(-7px) rotate(-45deg);
+  transform: translateY(-11px) rotate(-45deg);
 }
 
 @media (max-width: 900px) {
@@ -297,6 +317,7 @@ header {
   }
   .menu-toggle {
     display: grid;
+    place-items: center;
   }
   .mobile-drawer {
     position: fixed;
@@ -325,6 +346,9 @@ header {
   }
   .dots {
     display: none !important;
+  }
+  .mobile-drawer {
+    margin-top: 12px;
   }
 }
 .mobile-drawer {
@@ -834,6 +858,16 @@ footer {
   }
 }
 
+/* Hamburger menu: same gradient and size as .brand in light mode */
+body.light .menu-toggle {
+  background: linear-gradient(135deg, #22d1ee 60%, #7c5cff 100%) !important;
+  border-radius: 22px !important;
+  width: calc(12px * 2 + 39px); /* Same as .brand: padding + logo width */
+  height: 63px; /* Same as .brand: logo height + vertical padding */
+  border: 1px solid var(--border);
+  transition: background 0.3s, opacity 0.4s;
+}
+
 body.light .brand {
   background: #22d1ee !important;
 }
@@ -846,9 +880,80 @@ body.light #announcementBar p {
   background: #7c5cff !important;
 }
 
-/* Light mode: make links in nav and announcement bar white */
+/* Light mode backgrounds for nav, links, brand, and announcement bar (desktop & mobile) */
+body.light .brand,
+body.light #desktopLinks,
+body.light .mobile-drawer,
+body.light .mobile-drawer .brand {
+  background: linear-gradient(135deg, #22d1ee 60%, #7c5cff 100%) !important;
+}
+
+body.light #announcementBar p {
+  background: linear-gradient(135deg, #7c5cff 60%, #22d1ee 100%) !important;
+}
+
+/* Light mode: make links in nav, mobile drawer, and announcement bar white */
 body.light .nav a,
+body.light #desktopLinks a,
+body.light .mobile-drawer a,
 body.light #announcementBar a,
-body.light .brand span {
+body.light .brand span,
+body.light .mobile-drawer .brand span {
   color: #fff !important;
+}
+
+/* Light mode: toggle switch bar color */
+body.light input[type="checkbox"] + span {
+  background: #ff7ad9 !important;
+}
+
+/* Place media queries at the end of your CSS file */
+@media (max-width: 900px) {
+  .links {
+    display: none;
+  }
+  .menu-toggle {
+    display: grid;
+    place-items: center;
+  }
+  .mobile-drawer {
+    position: fixed;
+    inset: 70px var(--gap) auto var(--gap);
+    background: rgba(10, 12, 20, 0.9);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 18px;
+    display: none;
+    flex-direction: column;
+    gap: 12px;
+    backdrop-filter: blur(10px);
+    box-shadow: var(--shadow);
+    z-index: 60;
+  }
+  .mobile-drawer a {
+    color: var(--text);
+    text-decoration: none;
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: var(--glass);
+  }
+  .mobile-drawer.open {
+    display: flex;
+  }
+  .dots {
+    display: none !important;
+  }
+  .mobile-drawer {
+    margin-top: 12px;
+  }
+}
+@media (max-width: 560px) {
+  .btn {
+    padding: 12px 16px;
+  }
+  .arrow {
+    width: 42px;
+    height: 42px;
+  }
 }
