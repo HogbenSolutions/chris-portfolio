@@ -184,8 +184,7 @@ body {
   color: #fff;
   padding: 0px;
   width: 100%;
-  /* Remove position: fixed/absolute and top/right/left */
-  position: static;
+  position: relative;
   border-bottom: 1px solid var(--border);
 }
 
