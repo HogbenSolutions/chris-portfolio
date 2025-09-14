@@ -178,12 +178,15 @@ body {
 }
 
 #announcementBar {
-  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #fff;
   padding: 0px;
+  width: 100%;
+  /* Remove position: fixed/absolute and top/right/left */
+  position: static;
+  border-bottom: 1px solid var(--border);
 }
 
 #announcementBar p {
@@ -191,6 +194,7 @@ body {
   margin: 0;
   text-align: center;
   padding: 4px;
+  background: var(--glass);
 }
 
 #closeAnnouncement {
@@ -209,37 +213,38 @@ body {
 
 /* header */
 header {
-  position: fixed;
-  inset-inline: 0;
+  position: sticky;
   top: 0;
   z-index: 50;
+  /* background: transparent !important; */
 }
 .nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--gap);
-  padding: 12px var(--gap);
+  padding: 12px 0px var(--gap);
   border-radius: 22px;
 }
+
 #desktopLinks {
-  background: rgba(12, 14, 24, 0.6);
-  backdrop-filter: blur(8px);
+  background: var(--glass);
+  border-radius: 22px;
+  border: 1px solid var(--border);
   transition: background 0.3s, opacity 0.4s;
   padding: 12px;
-  border-radius: 22px;
 }
 .brand {
+  background: var(--glass);
+  border-radius: 22px;
+  border: 1px solid var(--border);
+  transition: background 0.3s, opacity 0.4s;
+  padding: 12px;
   display: flex;
   align-items: center;
   gap: 12px;
   font-weight: 900;
   letter-spacing: 0.6px;
-  background: rgba(12, 14, 24, 0.6);
-  backdrop-filter: blur(8px);
-  transition: background 0.3s, opacity 0.4s;
-  padding: 12px;
-  border-radius: 22px;
 }
 .logo {
   width: 39px;
@@ -273,14 +278,16 @@ header {
 /* hamburger with X animation */
 .menu-toggle {
   display: none;
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
+  width: calc(12px * 2 + 39px); /* Same as .brand: padding + logo width */
+  height: 63px; /* Same as .brand: logo height + vertical padding */
+  border-radius: 22px; /* Match .brand */
   border: 1px solid var(--border);
   background: var(--glass);
   color: var(--text);
   place-items: center;
   position: relative;
+  transition: background 0.3s, opacity 0.4s;
+  display: none; /* Only show on mobile */
 }
 .menu-toggle span {
   position: absolute;
@@ -361,6 +368,7 @@ header {
   overflow: hidden;
   padding: 0px 0px 50px 0px;
 }
+
 .slides {
   position: relative;
   display: grid;
@@ -371,7 +379,7 @@ header {
   grid-area: 1/1;
   display: grid;
   place-items: center;
-  padding: calc(130px + var(--gap)) var(--gap) var(--gap);
+  padding: calc(40px + var(--gap)) var(--gap) var(--gap);
   opacity: 0;
   transform: scale(0.98);
   transition: opacity 0.7s ease, transform 0.7s ease;
@@ -385,7 +393,7 @@ header {
   content: "";
   position: absolute;
   inset: -20% -10% -10% -10%;
-  background: radial-gradient(
+  /* background: radial-gradient(
       700px 600px at 20% -10%,
       rgba(124, 92, 255, 0.25),
       transparent 60%
@@ -394,7 +402,7 @@ header {
       600px 500px at 120% 20%,
       rgba(34, 209, 238, 0.18),
       transparent 55%
-    );
+    ); */
   filter: blur(10px);
   z-index: 0;
 }
@@ -862,34 +870,23 @@ footer {
 body.light .menu-toggle {
   background: linear-gradient(135deg, #22d1ee 60%, #7c5cff 100%) !important;
   border-radius: 22px !important;
-  width: calc(12px * 2 + 39px); /* Same as .brand: padding + logo width */
-  height: 63px; /* Same as .brand: logo height + vertical padding */
-  border: 1px solid var(--border);
-  transition: background 0.3s, opacity 0.4s;
+  border: none !important;
 }
 
-body.light .brand {
-  background: #22d1ee !important;
-}
-
-body.light #desktopLinks {
-  background: #ff7ad9 !important;
-}
-
-body.light #announcementBar p {
-  background: #7c5cff !important;
-}
-
-/* Light mode backgrounds for nav, links, brand, and announcement bar (desktop & mobile) */
+/* Light mode backgrounds for nav, links, brand (desktop & mobile) */
 body.light .brand,
 body.light #desktopLinks,
-body.light .mobile-drawer,
 body.light .mobile-drawer .brand {
   background: linear-gradient(135deg, #22d1ee 60%, #7c5cff 100%) !important;
+  border: none !important;
 }
 
+body.light .mobile-drawer {
+  border: 1px solid var(--border);
+}
 body.light #announcementBar p {
   background: linear-gradient(135deg, #7c5cff 60%, #22d1ee 100%) !important;
+  border: none !important;
 }
 
 /* Light mode: make links in nav, mobile drawer, and announcement bar white */
@@ -900,6 +897,14 @@ body.light #announcementBar a,
 body.light .brand span,
 body.light .mobile-drawer .brand span {
   color: #fff !important;
+  border: none !important;
+}
+
+body.light .mobile-drawer {
+  background: #f7f8fa !important;
+}
+body.light .mobile-drawer a {
+  background: linear-gradient(135deg, #22d1ee 60%, #7c5cff 100%) !important;
 }
 
 /* Light mode: toggle switch bar color */
