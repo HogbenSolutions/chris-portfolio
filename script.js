@@ -443,7 +443,9 @@ function animateWebsiteLaunch(canvas) {
     // Title text
     ctx.globalAlpha = 1;
     ctx.font = "bold 28px sans-serif";
-    ctx.fillStyle = "#fff";
+    // Detect theme and set fillStyle accordingly
+    const isLight = document.documentElement.classList.contains("light");
+    ctx.fillStyle = isLight ? "#181c2a" : "#fff"; // dark text for light mode, white for dark mode
     ctx.textAlign = "center";
     ctx.fillText("Multi-page Website", width / 2, height / 2 + pageH / 2 + 80);
 
@@ -849,19 +851,20 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Close button logic
-  closeBtn.addEventListener("click", () => {
+  closeBtn?.addEventListener("click", () => {
     announcementBar.style.display = "none";
     localStorage.setItem("announcementClosed", "true");
     closed = true;
   });
 
-  // Show bar when cursor at top, hide when not (if previously closed)
+  // Show bar when cursor enters the top area, hide when it leaves
   document.addEventListener("mousemove", (e) => {
     if (closed) {
-      if (e.clientY < 40 && !hoverActive) {
+      // Use a fixed area at the top of the screen (e.g. 40px)
+      if (e.clientY < 10 && !hoverActive) {
         announcementBar.style.display = "flex";
         hoverActive = true;
-      } else if (e.clientY >= 40 && hoverActive) {
+      } else if (e.clientY >= 10 && hoverActive) {
         announcementBar.style.display = "none";
         hoverActive = false;
       }
