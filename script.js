@@ -734,26 +734,22 @@ document.addEventListener("DOMContentLoaded", () => {
   const root = document.documentElement;
   const body = document.body;
   const toggleBtn = document.getElementById("themeToggle");
-  const themeIcon = document.getElementById("themeIcon");
 
   // Load theme from localStorage
   let theme = localStorage.getItem("theme") || "dark";
   if (theme === "light") {
     root.classList.add("light");
     body.classList.add("light");
-    themeIcon.textContent = "🌚";
   }
 
   toggleBtn.addEventListener("click", () => {
     if (root.classList.contains("light")) {
       root.classList.remove("light");
       body.classList.remove("light");
-      themeIcon.textContent = "🌙";
       localStorage.setItem("theme", "dark");
     } else {
       root.classList.add("light");
       body.classList.add("light");
-      themeIcon.textContent = "🌚";
       localStorage.setItem("theme", "light");
     }
   });
