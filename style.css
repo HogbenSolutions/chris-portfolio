@@ -354,7 +354,10 @@ header {
     display: none !important;
   }
   .mobile-drawer {
-    margin-top: 12px;
+    margin-top: 16px; /* Default space (no announcement bar) */
+  }
+  body.announcement-visible .mobile-drawer {
+    margin-top: calc(30px + 16px); /* Space for brand + announcement bar */
   }
 }
 .mobile-drawer {
@@ -949,7 +952,10 @@ body.light input[type="checkbox"] + span {
     display: none !important;
   }
   .mobile-drawer {
-    margin-top: 12px;
+    margin-top: 16px; /* Default space (no announcement bar) */
+  }
+  body.announcement-visible .mobile-drawer {
+    margin-top: calc(30px + 16px); /* Space for brand + announcement bar */
   }
 }
 @media (max-width: 560px) {
