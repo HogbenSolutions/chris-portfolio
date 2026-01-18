@@ -89,8 +89,9 @@ export default function Contact() {
 
           <form
             className="contact-form reveal"
-            action="https://formspree.io/f/myzdgqzb"
+            name="contact"
             method="POST"
+            netlify
           >
             <img
               src="https://res.cloudinary.com/dy8oze8dn/image/upload/v1755921732/Self_Portrait_qdcjdd.jpg"
