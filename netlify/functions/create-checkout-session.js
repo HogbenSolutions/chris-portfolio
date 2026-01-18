@@ -1,32 +1,42 @@
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
+import Stripe from 'stripe'
 
-exports.handler = async (event) => {
-  // Handle CORS
-  if (event.httpMethod === 'OPTIONS') {
-    return {
-      statusCode: 200,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Headers': 'Content-Type',
-      },
-    }
-  }
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 
-  if (event.httpMethod !== 'POST') {
-    return {
-      statusCode: 405,
-      body: JSON.stringify({ error: 'Method not allowed' }),
-    }
+export default async (request) => {
+  const headers = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Headers': 'Content-Type',
+    'Content-Type': 'application/json',
   }
 
   try {
-    const { priceId, successUrl, cancelUrl } = JSON.parse(event.body)
+    // In Netlify Functions v2, the event is a Request object
+    const bodyText = await request.text()
+    
+    if (!bodyText) {
+      return new Response(JSON.stringify({ error: 'Empty body' }), {
+        status: 400,
+        headers,
+      })
+    }
+    
+    let body
+    try {
+      body = JSON.parse(bodyText)
+    } catch (e) {
+      return new Response(JSON.stringify({ error: 'Invalid JSON', length: bodyText.length }), {
+        status: 400,
+        headers,
+      })
+    }
+    
+    const { priceId, successUrl, cancelUrl } = body
 
     if (!priceId || !successUrl || !cancelUrl) {
-      return {
-        statusCode: 400,
-        body: JSON.stringify({ error: 'Missing required parameters' }),
-      }
+      return new Response(JSON.stringify({ error: 'Missing required parameters', body }), {
+        status: 400,
+        headers,
+      })
     }
 
     const session = await stripe.checkout.sessions.create({
@@ -38,27 +48,18 @@ exports.handler = async (event) => {
         },
       ],
       mode: 'subscription',
-      return_url: `${successUrl}?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: cancelUrl,
+      return_url: successUrl + '?session_id={CHECKOUT_SESSION_ID}',
     })
 
-    return {
-      statusCode: 200,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ clientSecret: session.client_secret }),
-    }
+    return new Response(JSON.stringify({ clientSecret: session.client_secret }), {
+      status: 200,
+      headers,
+    })
   } catch (error) {
-    console.error('Error creating checkout session:', error)
-    return {
-      statusCode: 500,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ error: error.message }),
-    }
+    console.error('Error:', error.message)
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers,
+    })
   }
 }

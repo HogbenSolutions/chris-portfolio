@@ -36,12 +36,17 @@
 }
 
 .hosting-card {
-  background: var(--card-bg);
+  background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 1rem;
+  border-radius: var(--radius);
   padding: 3rem;
   animation: fadeInUp 0.8s ease-out 0.2s both;
-  box-shadow: 0 10px 40px rgba(88, 166, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.hosting-card:hover {
+  background: #ffffff1a;
+  border-color: var(--accent);
 }
 
 .hosting-card h2 {
@@ -86,7 +91,14 @@
 
 .full-width {
   width: 100%;
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 0.5rem;
   margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .hosting-info {
@@ -106,10 +118,11 @@
 }
 
 .info-item {
-  background: var(--card-bg);
-  border-left: 4px solid var(--accent);
+  background: var(--card);
+  border-left: 4px solid var(--info-stripe-color, var(--accent));
   padding: 1.5rem;
   border-radius: 0.5rem;
+  transition: border-color 0.3s ease;
 }
 
 .info-item h4 {
@@ -126,6 +139,83 @@
 /* Stripe Embedded Checkout */
 .StripeElement {
   margin: 1rem 0;
+}
+
+/* Success & Canceled Banners */
+.success-banner,
+.canceled-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 1.5rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  animation: slideDown 0.3s ease-out;
+}
+
+.success-banner {
+  background: linear-gradient(135deg, rgba(88, 166, 255, 0.2) 0%, rgba(88, 166, 255, 0.1) 100%);
+  border-bottom: 2px solid var(--accent);
+}
+
+.canceled-banner {
+  background: linear-gradient(135deg, rgba(255, 107, 107, 0.2) 0%, rgba(255, 107, 107, 0.1) 100%);
+  border-bottom: 2px solid #ff6b6b;
+}
+
+.banner-content h3 {
+  margin: 0 0 0.5rem 0;
+  color: var(--text);
+  font-size: 1.1rem;
+}
+
+.banner-content p {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.banner-close {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  margin-left: 2rem;
+  transition: color 0.2s ease;
+}
+
+.banner-close:hover {
+  color: var(--text);
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .success-banner,
+  .canceled-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .banner-close {
+    align-self: flex-end;
+    margin-left: 0;
+  }
 }
 
 @media (max-width: 768px) {

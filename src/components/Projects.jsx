@@ -41,7 +41,7 @@ export default function Projects() {
       id: 6,
       title: 'Social Network Platform',
       description: 'Social platform with user profiles, real-time messaging, activity feeds, and community engagement tools.',
-      tech: ['React', 'Express', 'MongoDB', 'Socket.io', 'Cloudinary'],
+      tech: ['React', 'Express', 'MongoDB', 'Socket.io', 'Google Cloud Storage'],
       features: ['User Profiles', 'Real-time Chat', 'Activity Feed', 'File Uploads', 'Friend System'],
     },
   ]
