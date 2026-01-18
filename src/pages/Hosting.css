@@ -1,0 +1,156 @@
+.hosting-page {
+  min-height: 100vh;
+  padding: 6rem 2rem 4rem;
+  background: var(--bg);
+}
+
+.hosting-header {
+  text-align: center;
+  margin-bottom: 4rem;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.hosting-header h1 {
+  font-size: 3.5rem;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1rem;
+}
+
+.hosting-header .sub {
+  font-size: 1.25rem;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.hosting-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.hosting-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 3rem;
+  animation: fadeInUp 0.8s ease-out 0.2s both;
+  box-shadow: 0 10px 40px rgba(88, 166, 255, 0.1);
+}
+
+.hosting-card h2 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: var(--text);
+}
+
+.price {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.price .amount {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.price .period {
+  color: var(--text-secondary);
+  font-size: 1rem;
+}
+
+.features {
+  list-style: none;
+  margin-bottom: 2rem;
+}
+
+.features li {
+  padding: 0.75rem 0;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border);
+  font-size: 0.95rem;
+}
+
+.features li:last-child {
+  border-bottom: none;
+}
+
+.full-width {
+  width: 100%;
+  margin-top: 2rem;
+}
+
+.hosting-info {
+  animation: fadeInUp 0.8s ease-out 0.3s both;
+}
+
+.hosting-info h3 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: var(--text);
+}
+
+.info-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.info-item {
+  background: var(--card-bg);
+  border-left: 4px solid var(--accent);
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+}
+
+.info-item h4 {
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.info-item p {
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* Stripe Embedded Checkout */
+.StripeElement {
+  margin: 1rem 0;
+}
+
+@media (max-width: 768px) {
+  .hosting-page {
+    padding: 4rem 1rem 2rem;
+  }
+
+  .hosting-header h1 {
+    font-size: 2.5rem;
+  }
+
+  .hosting-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .hosting-card {
+    padding: 2rem;
+  }
+
+  .price .amount {
+    font-size: 2.5rem;
+  }
+
+  .hosting-info h3 {
+    font-size: 1.5rem;
+  }
+}

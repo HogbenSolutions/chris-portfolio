@@ -11,7 +11,7 @@ export default function Header() {
           <div className="brand">
             <img
               src="https://res.cloudinary.com/dy8oze8dn/image/upload/v1768744961/logo-favicon_ntxcz2.png"
-              alt="Christopher Hogben"
+              alt="Hogben Solutions Logo"
               className="logo"
             />
             <span className="brand-name">Hogben Solutions</span>
