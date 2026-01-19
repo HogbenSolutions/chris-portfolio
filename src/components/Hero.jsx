@@ -24,7 +24,7 @@ export default function Hero() {
               Start a Project
             </a>
             <a href="#projects" className="btn ghost">
-              See My Work
+              What I Build
             </a>
           </div>
 

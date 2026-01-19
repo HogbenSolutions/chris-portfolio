@@ -18,9 +18,19 @@ export default function Contact() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    // Formspree will handle the submission
     setSubmitted(true)
-    setTimeout(() => setSubmitted(false), 3000)
+    setFormData({ name: '', email: '', tel: '', subject: '', message: '' })
+    setTimeout(() => setSubmitted(false), 5000)
+  }
+
+  const scrollToForm = () => {
+    setTimeout(() => {
+      const form = document.querySelector('.contact-form')
+      if (form) {
+        form.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        form.querySelector('input')?.focus()
+      }
+    }, 100)
   }
 
   return (
@@ -38,7 +48,7 @@ export default function Contact() {
             <h3>Why Choose Me?</h3>
             <ul className="benefits">
               <li>
-                <span className="icon">
+                <span className="icon" aria-label="Lightning bolt icon">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
                   </svg>
@@ -87,12 +97,16 @@ export default function Contact() {
             </ul>
           </div>
 
-          <form
+          <form 
             className="contact-form reveal"
             name="contact"
             method="POST"
-            netlify
+            data-netlify="true"
+            netlify-honeypot="bot-field"
+            onSubmit={handleSubmit}
           >
+            <input type="hidden" name="form-name" value="contact" />
+            <input type="hidden" name="bot-field" />
             <img
               src="https://res.cloudinary.com/dy8oze8dn/image/upload/v1755921732/Self_Portrait_qdcjdd.jpg"
               alt="Christopher Hogben"

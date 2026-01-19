@@ -3,27 +3,69 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0f1117" />
+  <meta name="color-scheme" content="dark" />
   <link rel="icon" type="image/png" href="https://res.cloudinary.com/dy8oze8dn/image/upload/v1768744961/logo-favicon_ntxcz2.png" />
-  <title>Christopher Hogben | MERN Stack Developer</title>
+  <link rel="canonical" href="https://hogben.solutions/" />
+  
+  <title>Christopher Hogben | Full-Stack MERN Developer | Hire Now</title>
   <meta
     name="description"
-    content="Full-stack MERN developer building modern web applications with MongoDB, Express, React, and Node.js. Based in Kent."
+    content="Full-stack MERN developer specializing in building scalable web applications. MongoDB, Express, React, Node.js expertise. Available for hire in Kent."
   />
-  <meta property="og:title" content="Christopher Hogben | MERN Stack Developer" />
-  <meta
-    property="og:description"
-    content="Full-stack MERN developer building modern web applications with MongoDB, Express, React, and Node.js."
-  />
-  <meta
-    property="og:image"
-    content="https://res.cloudinary.com/dy8oze8dn/image/upload/v1755921732/Self_Portrait_qdcjdd.jpg"
-  />
+  <meta name="keywords" content="MERN developer, full-stack developer, React developer, Node.js developer, Kent developer, web developer for hire" />
+  <meta name="author" content="Christopher Hogben" />
+  
+  <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://hogben.solutions/" />
+  <meta property="og:title" content="Christopher Hogben | Full-Stack MERN Developer" />
+  <meta property="og:description" content="Full-stack MERN developer building modern web applications. MongoDB, Express, React, Node.js." />
+  <meta property="og:image" content="https://res.cloudinary.com/dy8oze8dn/image/upload/v1755921732/Self_Portrait_qdcjdd.jpg" />
+  <meta property="og:image:alt" content="Christopher Hogben - MERN Stack Developer" />
+  
+  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://hogben.solutions/" />
+  <meta name="twitter:title" content="Christopher Hogben | Full-Stack MERN Developer" />
+  <meta name="twitter:description" content="Full-stack MERN developer building modern web applications with MongoDB, Express, React, and Node.js." />
+  <meta name="twitter:image" content="https://res.cloudinary.com/dy8oze8dn/image/upload/v1755921732/Self_Portrait_qdcjdd.jpg" />
+  
+  <!-- Schema.org structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Christopher Hogben",
+    "jobTitle": "Full-Stack MERN Developer",
+    "url": "https://hogben.solutions",
+    "sameAs": [
+      "https://github.com/HogbenSolutions"
+    ],
+    "image": "https://res.cloudinary.com/dy8oze8dn/image/upload/v1755921732/Self_Portrait_qdcjdd.jpg",
+    "description": "Full-stack MERN developer specializing in building scalable web applications",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Kent",
+      "addressCountry": "GB"
+    }
+  }
+  </script>
 </head>
 <body>
   <div id="root"></div>
+  
+  <!-- Hidden form for Netlify Forms detection during build -->
+  <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" style="display: none;">
+    <input type="hidden" name="form-name" value="contact" />
+    <input type="text" name="name" />
+    <input type="email" name="email" />
+    <input type="tel" name="tel" />
+    <input type="text" name="subject" />
+    <textarea name="message"></textarea>
+    <input type="text" name="bot-field" />
+  </form>
+  
   <script type="module" src="/src/main.jsx"></script>
 </body>
 </html>
