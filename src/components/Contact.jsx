@@ -16,11 +16,27 @@ export default function Contact() {
     setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    setSubmitted(true)
-    setFormData({ name: '', email: '', tel: '', subject: '', message: '' })
-    setTimeout(() => setSubmitted(false), 5000)
+    try {
+      const response = await fetch('/.netlify/functions/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      })
+
+      const data = await response.json()
+      
+      if (response.ok) {
+        setSubmitted(true)
+        setFormData({ name: '', email: '', tel: '', subject: '', message: '' })
+        setTimeout(() => setSubmitted(false), 5000)
+      } else {
+        console.error('Form submission failed:', data.error)
+      }
+    } catch (error) {
+      console.error('Form submission error:', error)
+    }
   }
 
   const scrollToForm = () => {
@@ -99,14 +115,8 @@ export default function Contact() {
 
           <form 
             className="contact-form reveal"
-            name="contact"
-            method="POST"
-            data-netlify="true"
-            netlify-honeypot="bot-field"
             onSubmit={handleSubmit}
           >
-            <input type="hidden" name="form-name" value="contact" />
-            <input type="hidden" name="bot-field" />
             <img
               src="https://res.cloudinary.com/dy8oze8dn/image/upload/v1755921732/Self_Portrait_qdcjdd.jpg"
               alt="Christopher Hogben"
