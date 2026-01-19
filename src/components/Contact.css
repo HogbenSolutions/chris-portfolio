@@ -178,6 +178,22 @@
   animation: fadeInUp 0.3s ease-out;
 }
 
+.error-message {
+  padding: 12px 16px;
+  border-radius: 8px;
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #ef4444;
+  text-align: center;
+  font-weight: 600;
+  animation: fadeInUp 0.3s ease-out;
+}
+
+.contact-form .btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 @media (max-width: 1024px) {
   .contact-grid {
     grid-template-columns: 1fr;

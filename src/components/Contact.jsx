@@ -10,17 +10,42 @@ export default function Contact() {
     message: '',
   })
   const [submitted, setSubmitted] = useState(false)
+  const [error, setError] = useState(null)
+  const [loading, setLoading] = useState(false)
 
   const handleChange = (e) => {
     const { name, value } = e.target
     setFormData((prev) => ({ ...prev, [name]: value }))
+    setError(null)
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    setSubmitted(true)
-    setFormData({ name: '', email: '', tel: '', subject: '', message: '' })
-    setTimeout(() => setSubmitted(false), 5000)
+    setLoading(true)
+    setError(null)
+    try {
+      const response = await fetch('/.netlify/functions/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      })
+
+      const data = await response.json()
+      
+      if (response.ok) {
+        setSubmitted(true)
+        setFormData({ name: '', email: '', tel: '', subject: '', message: '' })
+        setTimeout(() => setSubmitted(false), 5000)
+      } else {
+        setError(data.error || 'Form submission failed')
+        console.error('Form submission failed:', data.error)
+      }
+    } catch (error) {
+      setError('Network error: ' + error.message)
+      console.error('Form submission error:', error)
+    } finally {
+      setLoading(false)
+    }
   }
 
   const scrollToForm = () => {
@@ -99,14 +124,8 @@ export default function Contact() {
 
           <form 
             className="contact-form reveal"
-            name="contact"
-            method="POST"
-            data-netlify="true"
-            netlify-honeypot="bot-field"
             onSubmit={handleSubmit}
           >
-            <input type="hidden" name="form-name" value="contact" />
-            <input type="hidden" name="bot-field" />
             <img
               src="https://res.cloudinary.com/dy8oze8dn/image/upload/v1755921732/Self_Portrait_qdcjdd.jpg"
               alt="Christopher Hogben"
@@ -165,9 +184,15 @@ export default function Contact() {
               ></textarea>
             </div>
 
-            <button type="submit" className="btn accent">
-              Send Message
+            <button type="submit" className="btn accent" disabled={loading}>
+              {loading ? 'Sending...' : 'Send Message'}
             </button>
+
+            {error && (
+              <div className="error-message">
+                ✗ {error}
+              </div>
+            )}
 
             {submitted && (
               <div className="success-message">
