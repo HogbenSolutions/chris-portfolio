@@ -34,17 +34,12 @@ export default function Footer() {
             <h4>Connect</h4>
             <ul>
               <li>
-                <a href="https://github.com" target="_blank" rel="noopener noreferrer">
-                  GitHub
-                </a>
-              </li>
-              <li>
-                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
+                <a href="https://www.linkedin.com/in/christopher-hogben-b79932283" target="_blank" rel="noopener noreferrer">
                   LinkedIn
                 </a>
               </li>
               <li>
-                <a href="mailto:hello@hogben.solutions">Email</a>
+                <a href="mailto:chris@hogben.solutions">Email</a>
               </li>
             </ul>
           </div>
