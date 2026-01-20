@@ -30,7 +30,7 @@ export default async (request) => {
       })
     }
     
-    const { priceId, successUrl, cancelUrl } = body
+    const { priceId, domainName, successUrl, cancelUrl } = body
 
     if (!priceId || !successUrl || !cancelUrl) {
       return new Response(JSON.stringify({ error: 'Missing required parameters', body }), {
@@ -48,6 +48,9 @@ export default async (request) => {
         },
       ],
       mode: 'subscription',
+      metadata: {
+        domain_name: domainName || 'Not provided',
+      },
       return_url: successUrl + '?session_id={CHECKOUT_SESSION_ID}',
     })
 

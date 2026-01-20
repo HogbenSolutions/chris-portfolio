@@ -24,6 +24,7 @@ export default function Preview() {
   }
 
   const clientUrl = clientMap[clientName]
+  const proxyUrl = clientUrl ? `/.netlify/functions/proxy?url=${encodeURIComponent(clientUrl)}` : null
 
   useEffect(() => {
     if (!clientUrl) {
@@ -60,12 +61,11 @@ export default function Preview() {
         >
           <iframe
             key={iframeKey}
-            src={clientUrl}
+            src={proxyUrl}
             title={`Preview of ${clientName}`}
             className="preview-iframe"
             onLoad={() => setIsLoading(false)}
             onError={() => setIsLoading(false)}
-            sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-presentation allow-modals"
           />
         </div>
       </div>

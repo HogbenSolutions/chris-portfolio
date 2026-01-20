@@ -8,6 +8,8 @@ const stripePromise = loadStripe('pk_live_51SquHFDiDvWrDSRL7s4KT5WcIkM5i9h4s2QkV
 export default function Hosting() {
   const [clientSecret, setClientSecret] = useState(null)
   const [status, setStatus] = useState(null)
+  const [domainName, setDomainName] = useState('')
+  const [showDomainForm, setShowDomainForm] = useState(false)
 
   useEffect(() => {
     // Check for success/canceled query params
@@ -29,7 +31,18 @@ export default function Hosting() {
     })
   }, [])
 
-  const handleCheckout = async () => {
+  const handleCheckoutClick = () => {
+    setShowDomainForm(true)
+  }
+
+  const handleCheckout = async (e) => {
+    e.preventDefault()
+    
+    if (!domainName.trim()) {
+      alert('Please enter a domain name')
+      return
+    }
+
     try {
       const response = await fetch('/.netlify/functions/create-checkout-session', {
         method: 'POST',
@@ -38,6 +51,7 @@ export default function Hosting() {
         },
         body: JSON.stringify({
           priceId: 'price_1SqvNnDiDvWrDSRLhAt1uVhU',
+          domainName: domainName.trim(),
           successUrl: window.location.origin + '/hosting?success=true',
           cancelUrl: window.location.origin + '/hosting?canceled=true',
         }),
@@ -102,8 +116,33 @@ export default function Hosting() {
               <EmbeddedCheckoutProvider stripe={stripePromise} options={{ clientSecret }}>
                 <EmbeddedCheckout />
               </EmbeddedCheckoutProvider>
+            ) : showDomainForm ? (
+              <form onSubmit={handleCheckout} className="domain-form">
+                <div className="form-group">
+                  <label htmlFor="domain">Your Domain Name</label>
+                  <input
+                    type="text"
+                    id="domain"
+                    value={domainName}
+                    onChange={(e) => setDomainName(e.target.value)}
+                    placeholder="example.com"
+                    autoFocus
+                  />
+                  <small>Enter your domain name (e.g., mysite.com)</small>
+                </div>
+                <button type="submit" className="btn accent full-width">
+                  Proceed to Payment
+                </button>
+                <button 
+                  type="button" 
+                  onClick={() => setShowDomainForm(false)} 
+                  className="btn secondary full-width"
+                >
+                  Cancel
+                </button>
+              </form>
             ) : (
-              <button onClick={handleCheckout} className="btn accent full-width">
+              <button onClick={handleCheckoutClick} className="btn accent full-width">
                 Subscribe Now
               </button>
             )}
