@@ -1,8 +1,12 @@
 import Stripe from 'stripe'
 
+if (!process.env.STRIPE_SECRET_KEY) {
+  console.error('STRIPE_SECRET_KEY is not defined!')
+}
+
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 
-export default async (request) => {
+export const handler = async (request) => {
   const headers = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Headers': 'Content-Type',
@@ -10,33 +14,38 @@ export default async (request) => {
   }
 
   try {
-    // In Netlify Functions v2, the event is a Request object
-    const bodyText = await request.text()
+    // Handle different request formats
+    let body = {}
     
-    if (!bodyText) {
-      return new Response(JSON.stringify({ error: 'Empty body' }), {
-        status: 400,
+    // Local dev passes body as object directly
+    if (request.body && typeof request.body === 'object') {
+      body = request.body
+    } else if (request.body && typeof request.body === 'string') {
+      try {
+        body = JSON.parse(request.body)
+      } catch (e) {
+        return {
+          statusCode: 400,
+          headers,
+          body: JSON.stringify({ error: 'Invalid JSON' }),
+        }
+      }
+    } else {
+      return {
+        statusCode: 400,
         headers,
-      })
+        body: JSON.stringify({ error: 'Empty body' }),
+      }
     }
     
-    let body
-    try {
-      body = JSON.parse(bodyText)
-    } catch (e) {
-      return new Response(JSON.stringify({ error: 'Invalid JSON', length: bodyText.length }), {
-        status: 400,
-        headers,
-      })
-    }
-    
-    const { priceId, domainName, successUrl, cancelUrl } = body
+    const { priceId, email, domainName, successUrl, cancelUrl } = body
 
-    if (!priceId || !successUrl || !cancelUrl) {
-      return new Response(JSON.stringify({ error: 'Missing required parameters', body }), {
-        status: 400,
+    if (!priceId || !email || !domainName || !successUrl || !cancelUrl) {
+      return {
+        statusCode: 400,
         headers,
-      })
+        body: JSON.stringify({ error: 'Missing required parameters' }),
+      }
     }
 
     const session = await stripe.checkout.sessions.create({
@@ -48,21 +57,25 @@ export default async (request) => {
         },
       ],
       mode: 'subscription',
+      customer_email: email,
       metadata: {
-        domain_name: domainName || 'Not provided',
+        email: email,
+        domain_name: domainName,
       },
       return_url: successUrl + '?session_id={CHECKOUT_SESSION_ID}',
     })
 
-    return new Response(JSON.stringify({ clientSecret: session.client_secret }), {
-      status: 200,
+    return {
+      statusCode: 200,
       headers,
-    })
+      body: JSON.stringify({ clientSecret: session.client_secret }),
+    }
   } catch (error) {
-    console.error('Error:', error.message)
-    return new Response(JSON.stringify({ error: error.message }), {
-      status: 500,
+    console.error('Stripe error:', error.message)
+    return {
+      statusCode: 500,
       headers,
-    })
+      body: JSON.stringify({ error: error.message }),
+    }
   }
 }

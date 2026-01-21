@@ -3,12 +3,14 @@ import { loadStripe } from '@stripe/stripe-js'
 import { EmbeddedCheckoutProvider, EmbeddedCheckout } from '@stripe/react-stripe-js'
 import './Hosting.css'
 
-const stripePromise = loadStripe('pk_live_51SquHFDiDvWrDSRL7s4KT5WcIkM5i9h4s2QkVgJ8DoLCXQnhwb5T0gluIcupUrtaSsdF0S5Qz8dgaFnd7BiSULpa00z58Jp1zL')
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY)
+const STRIPE_PRICE_ID = import.meta.env.VITE_STRIPE_PRICE_ID
 
 export default function Hosting() {
   const [clientSecret, setClientSecret] = useState(null)
   const [status, setStatus] = useState(null)
   const [domainName, setDomainName] = useState('')
+  const [email, setEmail] = useState('')
   const [showDomainForm, setShowDomainForm] = useState(false)
 
   useEffect(() => {
@@ -38,6 +40,11 @@ export default function Hosting() {
   const handleCheckout = async (e) => {
     e.preventDefault()
     
+    if (!email.trim()) {
+      alert('Please enter an email address')
+      return
+    }
+
     if (!domainName.trim()) {
       alert('Please enter a domain name')
       return
@@ -50,7 +57,8 @@ export default function Hosting() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          priceId: 'price_1SqvNnDiDvWrDSRLhAt1uVhU',
+          priceId: STRIPE_PRICE_ID,
+          email: email.trim(),
           domainName: domainName.trim(),
           successUrl: window.location.origin + '/hosting?success=true',
           cancelUrl: window.location.origin + '/hosting?canceled=true',
@@ -119,6 +127,18 @@ export default function Hosting() {
             ) : showDomainForm ? (
               <form onSubmit={handleCheckout} className="domain-form">
                 <div className="form-group">
+                  <label htmlFor="email">Email Address</label>
+                  <input
+                    type="email"
+                    id="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="your@email.com"
+                    autoFocus
+                  />
+                  <small>We'll send hosting details to this email</small>
+                </div>
+                <div className="form-group">
                   <label htmlFor="domain">Your Domain Name</label>
                   <input
                     type="text"
@@ -126,7 +146,6 @@ export default function Hosting() {
                     value={domainName}
                     onChange={(e) => setDomainName(e.target.value)}
                     placeholder="example.com"
-                    autoFocus
                   />
                   <small>Enter your domain name (e.g., mysite.com)</small>
                 </div>
