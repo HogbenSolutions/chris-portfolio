@@ -21,11 +21,19 @@ export const handler = async (event) => {
     }
 
     const response = await fetch(url);
-    const body = await response.text();
+    let body = await response.text();
+
+    // Rewrite relative URLs to absolute URLs
+    const urlObj = new URL(url);
+    const baseUrl = urlObj.origin;
+    
+    // Replace relative src and href attributes with absolute URLs
+    body = body.replace(/src="(?!(?:https?:|\/|data:))/g, `src="${baseUrl}/`);
+    body = body.replace(/href="(?!(?:https?:|\/|#|data:))/g, `href="${baseUrl}/`);
 
     // Remove or modify X-Frame-Options header
     const headers = {
-      'Content-Type': response.headers.get('content-type'),
+      'Content-Type': response.headers.get('content-type') || 'text/html',
       'X-Frame-Options': 'ALLOWALL',
     };
 
