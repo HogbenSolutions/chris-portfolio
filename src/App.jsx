@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
 import Header from './components/Header'
 import Hero from './components/Hero'
@@ -11,6 +11,33 @@ import Preview from './pages/Preview'
 import './App.css'
 
 function MainLayout({ showCta }) {
+  const ctaRef = useRef(null)
+  const [isAnimatingOut, setIsAnimatingOut] = useState(false)
+
+  useEffect(() => {
+    if (showCta && isAnimatingOut) {
+      // Reset animation when scrolling back up
+      setIsAnimatingOut(false)
+    } else if (!showCta && !isAnimatingOut) {
+      // Trigger animation when scrolling into contact section
+      setIsAnimatingOut(true)
+    }
+  }, [showCta, isAnimatingOut])
+
+  const scrollToForm = (e) => {
+    // Only use custom scroll on screens 1024px or smaller
+    if (window.innerWidth <= 1024) {
+      e.preventDefault()
+      setTimeout(() => {
+        const form = document.querySelector('.contact-form')
+        if (form) {
+          form.scrollIntoView({ behavior: 'smooth', block: 'center' })
+          form.querySelector('input')?.focus()
+        }
+      }, 100)
+    }
+  }
+
   return (
     <>
       <Header />
@@ -21,8 +48,25 @@ function MainLayout({ showCta }) {
         <Contact />
       </main>
       <Footer />
-      {showCta && (
-        <a href="#contact" className="sticky-cta btn accent" aria-label="Contact">
+      {showCta && !isAnimatingOut && (
+        <a
+          ref={ctaRef}
+          href="#contact"
+          onClick={scrollToForm}
+          className={`sticky-cta btn outline ${isAnimatingOut ? 'envelope-out' : ''}`}
+          aria-label="Contact"
+        >
+          Get in Touch
+        </a>
+      )}
+      {isAnimatingOut && (
+        <a
+          ref={ctaRef}
+          href="#contact"
+          onClick={scrollToForm}
+          className="sticky-cta btn outline envelope-out"
+          aria-label="Contact"
+        >
           Get in Touch
         </a>
       )}

@@ -695,10 +695,12 @@ textarea {
   padding: 14px 12px;
   outline: none;
 }
+
 textarea {
   min-height: 120px;
   resize: vertical;
 }
+
 input:focus,
 textarea:focus {
   border-color: rgba(255, 255, 255, 0.32);

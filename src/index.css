@@ -127,6 +127,20 @@ body {
   filter: brightness(1.1);
 }
 
+.btn.outline {
+  background: transparent;
+  border: 2px solid var(--accent);
+  color: var(--text);
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.btn.outline:active {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #ffffff;
+  border-color: transparent;
+}
+
 .btn.ghost {
   background: transparent;
   border: 1px solid var(--border);
