@@ -5,18 +5,15 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
 
   const scrollToForm = (e) => {
-    // Only use custom scroll on screens 1024px or smaller
-    if (window.innerWidth <= 1024) {
-      e.preventDefault()
-      setMenuOpen(false)
-      setTimeout(() => {
-        const form = document.querySelector('.contact-form')
-        if (form) {
-          form.scrollIntoView({ behavior: 'smooth', block: 'center' })
-          form.querySelector('input')?.focus()
-        }
-      }, 100)
-    }
+    e.preventDefault()
+    setMenuOpen(false)
+    setTimeout(() => {
+      const form = document.querySelector('.contact-form')
+      if (form) {
+        form.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        form.querySelector('input')?.focus()
+      }
+    }, 100)
   }
 
   return (

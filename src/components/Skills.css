@@ -1,5 +1,6 @@
 .skills {
   padding: 6rem var(--gap) !important;
+  scroll-margin-top: 70px;
 }
 
 .skills-grid {

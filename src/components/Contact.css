@@ -1,5 +1,6 @@
 .contact {
   padding: 6rem var(--gap) !important;
+  scroll-margin-top: 70px;
   background: linear-gradient(
     180deg,
     rgba(31, 110, 251, 0.03) 0%,

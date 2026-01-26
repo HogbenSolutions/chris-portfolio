@@ -25,17 +25,14 @@ function MainLayout({ showCta }) {
   }, [showCta, isAnimatingOut])
 
   const scrollToForm = (e) => {
-    // Only use custom scroll on screens 1024px or smaller
-    if (window.innerWidth <= 1024) {
-      e.preventDefault()
-      setTimeout(() => {
-        const form = document.querySelector('.contact-form')
-        if (form) {
-          form.scrollIntoView({ behavior: 'smooth', block: 'center' })
-          form.querySelector('input')?.focus()
-        }
-      }, 100)
-    }
+    e.preventDefault()
+    setTimeout(() => {
+      const form = document.querySelector('.contact-form')
+      if (form) {
+        form.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        form.querySelector('input')?.focus()
+      }
+    }, 100)
   }
 
   return (
