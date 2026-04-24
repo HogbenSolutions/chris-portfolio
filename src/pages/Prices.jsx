@@ -166,14 +166,17 @@ export default function Prices() {
 
               <div className="hosting-section">
                 <div className="hosting-label-row">
-                  <span className="hosting-icon">⚡</span>
                   <span className="hosting-label">Hosting required</span>
                 </div>
                 <div className="hosting-name">{tier.hosting.label}</div>
                 <div className="hosting-price">{tier.hosting.price}</div>
                 <p className="hosting-note">{tier.hosting.note}</p>
                 {tier.hosting.link ? (
-                  <Link to={tier.hosting.link} className="btn ghost hosting-btn">
+                  <Link
+                    to={tier.hosting.link}
+                    className="btn ghost hosting-btn"
+                    onClick={() => window.scrollTo(0, 0)}
+                  >
                     View Hosting Plan
                   </Link>
                 ) : (

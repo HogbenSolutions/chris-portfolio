@@ -202,11 +202,6 @@
 .hosting-label-row {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
-}
-
-.hosting-icon {
-  font-size: 0.9rem;
 }
 
 .hosting-label {
