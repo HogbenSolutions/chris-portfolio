@@ -41,6 +41,7 @@ export default function Header() {
             <a href="/#home" onClick={() => setMenuOpen(false)}>Home</a>
             <a href="/#projects" onClick={() => setMenuOpen(false)}>Projects</a>
             <a href="/#skills" onClick={() => setMenuOpen(false)}>Skills</a>
+            <a href="/prices" onClick={() => setMenuOpen(false)}>Prices</a>
             <a href="/#contact" onClick={scrollToContact}>Contact</a>
           </div>
 

@@ -1,0 +1,345 @@
+.prices-page {
+  padding: 6rem 2rem 6rem;
+  background: var(--bg);
+  position: relative;
+  z-index: 1;
+}
+
+.prices-header {
+  text-align: center;
+  margin-bottom: 4rem;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.prices-header h1 {
+  font-size: 3.5rem;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1rem;
+}
+
+.prices-header .sub {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  max-width: 680px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* ── Card grid ── */
+.prices-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  max-width: var(--container);
+  margin: 0 auto 3rem;
+}
+
+.prices-grid .price-card:nth-child(4) {
+  grid-column: 1 / 2;
+  margin-left: auto;
+  width: 100%;
+}
+
+.prices-grid .price-card:nth-child(5) {
+  grid-column: 2 / 4;
+}
+
+/* ── Individual card ── */
+.price-card {
+  position: relative;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  animation: fadeInUp 0.7s ease-out both;
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+
+.price-card:hover {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: var(--accent);
+}
+
+.price-card.featured {
+  border-color: var(--accent);
+  background: rgba(88, 166, 255, 0.06);
+}
+
+.price-card.featured:hover {
+  background: rgba(88, 166, 255, 0.1);
+}
+
+/* ── Badge ── */
+.price-badge {
+  position: absolute;
+  top: -0.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.85rem;
+  border-radius: 99px;
+  white-space: nowrap;
+}
+
+/* ── Tier heading & description ── */
+.price-card h2 {
+  font-size: 1.4rem;
+  color: var(--text);
+  margin: 0;
+}
+
+.tier-desc {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* ── Build cost block ── */
+.build-cost {
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.from-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+}
+
+.price-range {
+  display: flex;
+  align-items: baseline;
+  gap: 0.1rem;
+  flex-wrap: wrap;
+}
+
+.price-from {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.price-sep {
+  font-size: 1.25rem;
+  color: var(--text-secondary);
+}
+
+.price-to {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--accent-2);
+}
+
+.price-note {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* ── Feature list ── */
+.tier-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  flex: 1;
+}
+
+.tier-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding: 0.6rem 0;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border);
+  line-height: 1.45;
+}
+
+.tier-features li:last-child {
+  border-bottom: none;
+}
+
+.check {
+  color: var(--accent-4);
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 0.05em;
+}
+
+/* ── Hosting section ── */
+.hosting-section {
+  border-top: 1px solid var(--border);
+  padding-top: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: auto;
+}
+
+.hosting-label-row {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.hosting-icon {
+  font-size: 0.9rem;
+}
+
+.hosting-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-4);
+}
+
+.hosting-name {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.hosting-price {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--accent-4);
+}
+
+.hosting-note {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.hosting-btn {
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+  align-self: flex-start;
+  text-decoration: none;
+}
+
+.hosting-tag {
+  display: inline-block;
+  margin-top: 0.25rem;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+/* ── Disclaimer ── */
+.prices-disclaimer {
+  max-width: 720px;
+  margin: 0 auto 4rem;
+  text-align: center;
+}
+
+.prices-disclaimer p {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem 1.5rem;
+  background: var(--card);
+}
+
+/* ── CTA block ── */
+.prices-cta {
+  text-align: center;
+  padding: 4rem 2rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--card);
+  max-width: var(--container);
+  margin: 0 auto;
+  animation: fadeInUp 0.8s ease-out 0.5s both;
+}
+
+.prices-cta h2 {
+  font-size: 2rem;
+  color: var(--text);
+  margin-bottom: 0.75rem;
+}
+
+.prices-cta p {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  max-width: 500px;
+  margin: 0 auto 2rem;
+  line-height: 1.6;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .prices-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .prices-grid .price-card:nth-child(4),
+  .prices-grid .price-card:nth-child(5) {
+    grid-column: auto;
+    margin-left: 0;
+    width: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .prices-page {
+    padding: 4rem 1rem 3rem;
+  }
+
+  .prices-header h1 {
+    font-size: 2.25rem;
+  }
+
+  .prices-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .prices-grid .price-card:nth-child(4),
+  .prices-grid .price-card:nth-child(5) {
+    grid-column: auto;
+  }
+
+  .prices-cta {
+    padding: 2.5rem 1.25rem;
+  }
+
+  .prices-cta h2 {
+    font-size: 1.5rem;
+  }
+
+  .price-from {
+    font-size: 1.6rem;
+  }
+
+  .price-to {
+    font-size: 1.2rem;
+  }
+}

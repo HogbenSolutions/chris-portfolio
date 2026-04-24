@@ -7,6 +7,7 @@ import Skills from './components/Skills'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import Hosting from './pages/Hosting'
+import Prices from './pages/Prices'
 import Preview from './pages/Preview'
 import './App.css'
 
@@ -103,6 +104,7 @@ function AppContent() {
       <Routes>
         <Route path="/" element={<MainLayout showCta={showCta} />} />
         <Route path="/hosting" element={<><Header /><Hosting /><Footer /></>} />
+        <Route path="/prices" element={<><Header /><Prices /><Footer /></>} />
         <Route path="/preview/:clientName" element={<Preview />} />
       </Routes>
     </div>
