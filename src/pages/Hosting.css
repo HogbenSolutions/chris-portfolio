@@ -1,6 +1,10 @@
 .hosting-page {
   padding: 6rem 2rem 6rem;
-  background: var(--bg);
+  background: linear-gradient(
+    180deg,
+    rgba(88, 166, 255, 0.03) 0%,
+    rgba(31, 110, 251, 0.03) 100%
+  );
 }
 
 .hosting-header {
@@ -97,6 +101,8 @@
 .hosting-card:hover {
   background: #ffffff1a;
   border-color: var(--accent);
+  transform: translateY(-8px);
+  box-shadow: 0 20px 50px rgba(124, 92, 255, 0.2);
 }
 
 .hosting-card h2 {

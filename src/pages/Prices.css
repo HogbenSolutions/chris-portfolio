@@ -1,6 +1,10 @@
 .prices-page {
   padding: 6rem 2rem 6rem;
-  background: var(--bg);
+  background: linear-gradient(
+    180deg,
+    rgba(88, 166, 255, 0.03) 0%,
+    rgba(31, 110, 251, 0.03) 100%
+  );
   position: relative;
   z-index: 1;
 }
@@ -58,12 +62,14 @@
   flex-direction: column;
   gap: 1.25rem;
   animation: fadeInUp 0.7s ease-out both;
-  transition: border-color 0.3s ease, background 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .price-card:hover {
   background: rgba(255, 255, 255, 0.09);
   border-color: var(--accent);
+  transform: translateY(-8px);
+  box-shadow: 0 20px 50px rgba(124, 92, 255, 0.2);
 }
 
 .price-card.featured {
@@ -73,6 +79,8 @@
 
 .price-card.featured:hover {
   background: rgba(88, 166, 255, 0.1);
+  transform: translateY(-8px);
+  box-shadow: 0 20px 50px rgba(124, 92, 255, 0.2);
 }
 
 /* ── Badge ── */
@@ -218,6 +226,19 @@
   color: var(--text);
 }
 
+.hosting-name-link {
+  text-decoration: none;
+  color: var(--text-secondary);
+  width: fit-content;
+  border-bottom: 1px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.hosting-name-link:hover {
+  color: var(--accent-2);
+  border-bottom-color: rgba(121, 192, 255, 0.45);
+}
+
 .hosting-price {
   font-size: 1.15rem;
   font-weight: 700;
@@ -229,14 +250,6 @@
   color: var(--text-secondary);
   line-height: 1.5;
   margin: 0;
-}
-
-.hosting-btn {
-  margin-top: 0.5rem;
-  padding: 0.5rem 1rem;
-  font-size: 0.85rem;
-  align-self: flex-start;
-  text-decoration: none;
 }
 
 .hosting-tag {

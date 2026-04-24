@@ -1,6 +1,11 @@
 .skills {
   padding: 6rem var(--gap) !important;
   scroll-margin-top: 70px;
+  background: linear-gradient(
+    180deg,
+    rgba(88, 166, 255, 0.03) 0%,
+    rgba(31, 110, 251, 0.03) 100%
+  );
 }
 
 .skills-grid {
@@ -21,6 +26,8 @@
 .skill-group:hover {
   background: rgba(255, 255, 255, 0.1);
   border-color: var(--accent);
+  transform: translateY(-8px);
+  box-shadow: 0 20px 50px rgba(124, 92, 255, 0.2);
 }
 
 .group-title {
@@ -96,7 +103,8 @@
 
 .highlight-card:hover {
   border-color: var(--accent);
-  transform: translateY(-4px);
+  transform: translateY(-8px);
+  box-shadow: 0 20px 50px rgba(124, 92, 255, 0.2);
 }
 
 .highlight-card h3 {
