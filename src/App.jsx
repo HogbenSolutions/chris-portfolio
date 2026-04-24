@@ -76,6 +76,13 @@ function AppContent() {
   const location = useLocation()
 
   useEffect(() => {
+    if (location.hash) {
+      const el = document.getElementById(location.hash.slice(1))
+      if (el) el.scrollIntoView({ behavior: 'smooth' })
+    }
+  }, [location])
+
+  useEffect(() => {
     const contactElement = document.getElementById('contact')
     if (!contactElement) return
 
@@ -95,7 +102,7 @@ function AppContent() {
       <div className="aurora" aria-hidden="true"></div>
       <Routes>
         <Route path="/" element={<MainLayout showCta={showCta} />} />
-        <Route path="/hosting" element={<Hosting />} />
+        <Route path="/hosting" element={<><Header /><Hosting /><Footer /></>} />
         <Route path="/preview/:clientName" element={<Preview />} />
       </Routes>
     </div>

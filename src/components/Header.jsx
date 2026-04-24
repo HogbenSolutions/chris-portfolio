@@ -1,12 +1,20 @@
 import { useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import './Header.css'
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const location = useLocation()
+  const navigate = useNavigate()
+  const onHome = location.pathname === '/'
 
-  const scrollToForm = (e) => {
+  const scrollToContact = (e) => {
     e.preventDefault()
     setMenuOpen(false)
+    if (!onHome) {
+      navigate('/#contact')
+      return
+    }
     setTimeout(() => {
       const form = document.querySelector('.contact-form')
       if (form) {
@@ -30,10 +38,10 @@ export default function Header() {
           </div>
 
           <div className={`nav-links ${menuOpen ? 'open' : ''}`}>
-            <a href="#home" onClick={() => setMenuOpen(false)}>Home</a>
-            <a href="#projects" onClick={() => setMenuOpen(false)}>Projects</a>
-            <a href="#skills" onClick={() => setMenuOpen(false)}>Skills</a>
-            <a href="#contact" onClick={scrollToForm}>Contact</a>
+            <a href="/#home" onClick={() => setMenuOpen(false)}>Home</a>
+            <a href="/#projects" onClick={() => setMenuOpen(false)}>Projects</a>
+            <a href="/#skills" onClick={() => setMenuOpen(false)}>Skills</a>
+            <a href="/#contact" onClick={scrollToContact}>Contact</a>
           </div>
 
           <button

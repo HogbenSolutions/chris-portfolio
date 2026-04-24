@@ -4,7 +4,10 @@ import { EmbeddedCheckoutProvider, EmbeddedCheckout } from '@stripe/react-stripe
 import './Hosting.css'
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY)
-const STRIPE_PRICE_ID = import.meta.env.VITE_STRIPE_PRICE_ID
+const PRICE_IDS = {
+  monthly: import.meta.env.VITE_STRIPE_PRICE_ID,
+  annual: import.meta.env.VITE_STRIPE_ANNUAL_PRICE_ID,
+}
 
 export default function Hosting() {
   const [clientSecret, setClientSecret] = useState(null)
@@ -12,6 +15,7 @@ export default function Hosting() {
   const [domainName, setDomainName] = useState('')
   const [email, setEmail] = useState('')
   const [showDomainForm, setShowDomainForm] = useState(false)
+  const [billingPeriod, setBillingPeriod] = useState('monthly')
 
   useEffect(() => {
     // Check for success/canceled query params
@@ -57,7 +61,7 @@ export default function Hosting() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          priceId: STRIPE_PRICE_ID,
+          priceId: PRICE_IDS[billingPeriod],
           email: email.trim(),
           domainName: domainName.trim(),
           successUrl: window.location.origin + '/hosting?success=true',
@@ -103,12 +107,37 @@ export default function Hosting() {
           <p className="sub">Professional hosting for your projects</p>
         </div>
 
+        <div className="billing-toggle">
+          <button
+            className={`toggle-option${billingPeriod === 'monthly' ? ' active' : ''}`}
+            onClick={() => { setBillingPeriod('monthly'); setClientSecret(null); setShowDomainForm(false) }}
+          >
+            Monthly
+          </button>
+          <button
+            className={`toggle-option${billingPeriod === 'annual' ? ' active' : ''}`}
+            onClick={() => { setBillingPeriod('annual'); setClientSecret(null); setShowDomainForm(false) }}
+          >
+            Annually
+            <span className="save-badge">Save £20</span>
+          </button>
+        </div>
+
         <div className="hosting-grid">
           <div className="hosting-card">
             <h2>Shared Hosting</h2>
             <div className="price">
-              <span className="amount">£20</span>
-              <span className="period">/month</span>
+              {billingPeriod === 'monthly' ? (
+                <>
+                  <span className="amount">£20</span>
+                  <span className="period">/month</span>
+                </>
+              ) : (
+                <>
+                  <span className="amount">£220</span>
+                  <span className="period">/year</span>
+                </>
+              )}
             </div>
 
             <ul className="features">
