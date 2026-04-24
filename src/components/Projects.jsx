@@ -64,7 +64,7 @@ export default function Projects() {
 
               <p className="project-description">{project.description}</p>
 
-              <div className="project-section">
+              <div className="project-section stack-section">
                 <p className="section-title">Stack</p>
                 <div className="tech-list">
                   {project.tech.map((tech) => (
@@ -75,7 +75,7 @@ export default function Projects() {
                 </div>
               </div>
 
-              <div className="project-section">
+              <div className="project-section features-section">
                 <p className="section-title">Features</p>
                 <ul className="features-list">
                   {project.features.map((feature) => (

@@ -39,6 +39,10 @@
   gap: 1.5rem;
   max-width: var(--container);
   margin: 0 auto 3rem;
+  --card-title-row: 3.5rem;
+  --card-desc-row: 8.5rem;
+  --card-features-row: 15rem;
+  --card-hosting-row: 8.25rem;
 }
 
 .prices-grid .price-card:nth-child(4) {
@@ -58,9 +62,15 @@
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   padding: 2rem;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows:
+    minmax(var(--card-title-row), auto)
+    minmax(var(--card-desc-row), auto)
+    auto
+    minmax(var(--card-features-row), 1fr)
+    minmax(var(--card-hosting-row), auto);
   gap: 1.25rem;
+  align-items: start;
   animation: fadeInUp 0.7s ease-out both;
   transition: all 0.3s ease;
 }
@@ -103,6 +113,7 @@
 /* ── Tier heading & description ── */
 .price-card h2 {
   font-size: 1.4rem;
+  line-height: 1.25;
   color: var(--text);
   margin: 0;
 }
@@ -172,7 +183,7 @@
   display: flex;
   flex-direction: column;
   gap: 0;
-  flex: 1;
+  align-self: stretch;
 }
 
 .tier-features li {
@@ -204,7 +215,6 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  margin-top: auto;
 }
 
 .hosting-label-row {
@@ -307,6 +317,9 @@
 @media (max-width: 1024px) {
   .prices-grid {
     grid-template-columns: repeat(2, 1fr);
+    --card-desc-row: 7.5rem;
+    --card-features-row: 14rem;
+    --card-hosting-row: 8rem;
   }
 
   .prices-grid .price-card:nth-child(4),
@@ -333,6 +346,10 @@
   .prices-grid .price-card:nth-child(4),
   .prices-grid .price-card:nth-child(5) {
     grid-column: auto;
+  }
+
+  .price-card {
+    grid-template-rows: auto;
   }
 
   .prices-cta {
