@@ -126,11 +126,6 @@ export default function Contact() {
             className="contact-form reveal"
             onSubmit={handleSubmit}
           >
-            <img
-              src="https://res.cloudinary.com/dy8oze8dn/image/upload/v1755921732/Self_Portrait_qdcjdd.jpg"
-              alt="Christopher Hogben"
-              className="form-avatar"
-            />
             <div className="form-group">
               <input
                 type="text"

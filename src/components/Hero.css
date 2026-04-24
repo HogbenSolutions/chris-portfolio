@@ -1,12 +1,33 @@
 .hero {
   padding-top: 120px;
   padding-bottom: 4rem;
+  min-height: 100vh;
   position: relative;
   z-index: 1;
   scroll-margin-top: 70px;
+  background-image:
+    linear-gradient(rgba(31, 111, 235, 0.1), rgba(31, 111, 235, 0.1)),
+    linear-gradient(rgba(12, 14, 24, 0.55), rgba(12, 14, 24, 0.55)),
+    url('/images/home-bg.png');
+  background-size: cover;
+  background-position: right center;
+  background-repeat: no-repeat;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(to right, rgb(15, 17, 23) 0%, transparent 55%),
+    linear-gradient(to top, rgb(15, 17, 23) 0%, transparent 50%);
 }
 
 .hero .container {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
@@ -174,5 +195,20 @@
   .hero-cta .btn {
     width: 100%;
     justify-content: center;
+  }
+}
+
+@media (max-width: 551px) {
+  .hero {
+    background-size: cover, cover, auto clamp(40%, 130vw, 75%);
+    background-position: right center, right center, right top;
+  }
+
+  .hero::after {
+    inset: unset;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: clamp(40%, 130vw, 75%);
   }
 }
