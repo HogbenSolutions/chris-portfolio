@@ -7,6 +7,10 @@
   );
 }
 
+.hosting-page-with-banner {
+  padding-top: 11.5rem;
+}
+
 .hosting-header {
   text-align: center;
   margin-bottom: 4rem;
@@ -201,7 +205,7 @@
 .success-banner,
 .canceled-banner {
   position: fixed;
-  top: 0;
+  top: 4.75rem;
   left: 0;
   right: 0;
   z-index: 1000;
@@ -261,6 +265,10 @@
 }
 
 @media (max-width: 768px) {
+  .hosting-page-with-banner {
+    padding-top: 13rem;
+  }
+
   .success-banner,
   .canceled-banner {
     flex-direction: column;

@@ -5,8 +5,8 @@ import './Hosting.css'
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY)
 const PRICE_IDS = {
-  monthly: import.meta.env.VITE_STRIPE_PRICE_ID,
-  annual: import.meta.env.VITE_STRIPE_ANNUAL_PRICE_ID,
+  monthly: import.meta.env.VITE_STRIPE_SHARED_HOSTING_MONTHLY_PRICE_ID,
+  annual: import.meta.env.VITE_STRIPE_SHARED_HOSTING_ANNUAL_PRICE_ID,
 }
 
 export default function Hosting() {
@@ -82,7 +82,7 @@ export default function Hosting() {
   }
 
   return (
-    <div className="hosting-page">
+    <div className={`hosting-page${status ? ' hosting-page-with-banner' : ''}`}>
       {status === 'success' && (
         <div className="success-banner">
           <div className="banner-content">
