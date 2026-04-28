@@ -126,7 +126,7 @@ export default function Prices() {
           <h1>Website Pricing</h1>
           <p className="sub">
             Transparent, honest pricing for every stage of your online journey.
-            All builds are bespoke — every price below is a guide based on typical
+            All builds are bespoke - every price below is a guide based on typical
             UK market rates for 2024&ndash;25.
           </p>
         </div>
@@ -198,7 +198,7 @@ export default function Prices() {
 
         <div className="prices-cta">
           <h2>Not sure which tier fits?</h2>
-          <p>Describe your project and I&apos;ll give you an honest recommendation and a detailed quote — no jargon, no hard sell.</p>
+          <p>Describe your project and I&apos;ll give you an honest recommendation and a detailed quote - no jargon, no hard sell.</p>
           <button onClick={scrollToContact} className="btn accent">
             Get a Free Quote
           </button>
