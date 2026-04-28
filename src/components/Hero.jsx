@@ -1,8 +1,17 @@
+import { useState, useEffect } from 'react'
 import './Hero.css'
 
 export default function Hero() {
+  const [imageLoaded, setImageLoaded] = useState(false)
+
+  useEffect(() => {
+    const img = new Image()
+    img.src = '/images/home-bg.png'
+    img.onload = () => setImageLoaded(true)
+  }, [])
+
   return (
-    <section className="hero" id="home">
+    <section className={`hero${imageLoaded ? ' image-loaded' : ''}`} id="home">
       <div className="container">
         <div className="hero-content">
           <div className="kicker">

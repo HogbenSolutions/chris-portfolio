@@ -14,6 +14,21 @@
   background-repeat: no-repeat;
 }
 
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: #0f1117;
+  opacity: 1;
+  transition: opacity 6s ease;
+}
+
+.hero.image-loaded::before {
+  opacity: 0;
+}
+
 .hero::after {
   content: '';
   position: absolute;
