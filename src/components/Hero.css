@@ -5,39 +5,35 @@
   position: relative;
   z-index: 1;
   scroll-margin-top: 70px;
+  background: linear-gradient(180deg, rgba(88, 166, 255, 0.03) 0%, rgba(31, 110, 251, 0.03) 100%);
+}
+
+.hero::after {
+  content: '';
+  position: fixed;
+  top: 40px;
+  right: 0;
+  width: clamp(400px, 75vw, 900px);
+  height: clamp(400px, 75vw, 900px);
+  z-index: 0;
+  pointer-events: none;
   background-image:
     linear-gradient(rgba(31, 111, 235, 0.1), rgba(31, 111, 235, 0.1)),
     linear-gradient(rgba(12, 14, 24, 0.55), rgba(12, 14, 24, 0.55)),
     url('/images/home-bg.png');
   background-size: cover;
-  background-position: right center;
+  background-position: right top;
   background-repeat: no-repeat;
-}
-
-.hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background: #0f1117;
-  opacity: 1;
+  mask-image: linear-gradient(to bottom, transparent 0%, black 40%), radial-gradient(ellipse 80% 85% at 80% 30%, black 30%, transparent 75%);
+  mask-composite: intersect, add;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 40%), radial-gradient(ellipse 80% 85% at 80% 30%, black 30%, transparent 75%);
+  -webkit-mask-composite: destination-in, source-over;
+  opacity: 0;
   transition: opacity 6s ease;
 }
 
-.hero.image-loaded::before {
-  opacity: 0;
-}
-
-.hero::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background:
-    linear-gradient(to right, rgb(15, 17, 23) 0%, transparent 55%),
-    linear-gradient(to top, rgb(15, 17, 23) 0%, transparent 50%);
+.hero.image-loaded::after {
+  opacity: 1;
 }
 
 .hero .container {
@@ -213,17 +209,9 @@
   }
 }
 
-@media (max-width: 551px) {
-  .hero {
-    background-size: cover, cover, auto clamp(40%, 130vw, 75%);
-    background-position: right center, right center, right top;
-  }
-
+@media (max-width: 768px) {
   .hero::after {
-    inset: unset;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: clamp(40%, 130vw, 75%);
+    top: 72px;
   }
 }
+
