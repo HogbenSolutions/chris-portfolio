@@ -8,7 +8,7 @@ const tiers = [
     buildFrom: '£500',
     buildTo: '£1,200',
     badge: null,
-    description: 'A clean, fast single or multi-page site — ideal for sole traders, events, or personal brands who need an online presence without the complexity.',
+    description: 'A clean, fast single or multi-page site - ideal for sole traders, events, or personal brands who need an online presence without the complexity.',
     includes: [
       'Up to 5 pages (Home, About, Services, Contact, etc.)',
       'Mobile-responsive design',
