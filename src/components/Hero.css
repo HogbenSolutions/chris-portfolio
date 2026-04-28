@@ -20,7 +20,7 @@
   background-image:
     linear-gradient(rgba(31, 111, 235, 0.1), rgba(31, 111, 235, 0.1)),
     linear-gradient(rgba(12, 14, 24, 0.55), rgba(12, 14, 24, 0.55)),
-    url('/images/home-bg.jpg');
+    url('/images/home-bg.png');
   background-size: cover;
   background-position: right top;
   background-repeat: no-repeat;

@@ -6,7 +6,7 @@ export default function Hero() {
 
   useEffect(() => {
     const img = new Image()
-    img.src = '/images/home-bg.jpg'
+    img.src = '/images/home-bg.png'
     img.onload = () => setImageLoaded(true)
   }, [])
 
